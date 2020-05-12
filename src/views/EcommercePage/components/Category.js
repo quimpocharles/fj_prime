@@ -23,40 +23,47 @@ import Button from "components/CustomButtons/Button.js";
 import styles from "assets/jss/material-kit-pro-react/views/componentsSections/sectionCards.js";
 const useStyles = makeStyles(styles);
 const Category = (props) => {
-	const classes = useStyles();
-	return (
-		<GridItem xs={12} sm={4} md={4}>
-			<Card blog>
-				<CardHeader image>
-					<a href="#pablo" onClick={(e) => e.preventDefault()}>
-						<img src={color1} alt="..." />
-					</a>
-					<div
-						className={classes.coloredShadow}
-						style={{
-							backgroundImage: `url(${color1})`,
-							opacity: "1",
-						}}
-					/>
-				</CardHeader>
-				<CardBody>
-					<h6 className={classes.cardCategory}>{props.category}</h6>
+  console.log(props);
 
-					<h4 className={classes.cardTitle}>
-						<a href="#pablo" onClick={(e) => e.preventDefault()}>
-							<Button
-								color="danger"
-								block
-								round
-								className={classes.subscribeButton}
-							>
-								SELECT
-							</Button>
-						</a>
-					</h4>
-				</CardBody>
-			</Card>
-		</GridItem>
-	);
+  const categoryClickHandler = (e) => {
+    e.preventDefault();
+    console.log(e.currentTarget.value);
+  };
+
+  const classes = useStyles();
+  return (
+    <GridItem xs={12} sm={4} md={4}>
+      <Card blog>
+        <CardHeader image>
+          <a href="#pablo" onClick={(e) => e.preventDefault()}>
+            <img src={color1} alt="..." />
+          </a>
+          <div
+            className={classes.coloredShadow}
+            style={{
+              backgroundImage: `url(${color1})`,
+              opacity: "1",
+            }}
+          />
+        </CardHeader>
+        <CardBody>
+          <h6 className={classes.cardCategory}>{props.category}</h6>
+
+          <h4 className={classes.cardTitle}>
+            <Button
+              color="danger"
+              block
+              round
+              className={classes.subscribeButton}
+              value={props.id}
+              onClick={categoryClickHandler}
+            >
+              SELECT
+            </Button>
+          </h4>
+        </CardBody>
+      </Card>
+    </GridItem>
+  );
 };
 export default Category;

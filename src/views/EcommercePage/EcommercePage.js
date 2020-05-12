@@ -1,5 +1,10 @@
 /*eslint-disable*/
 import React from "react";
+
+import { graphql } from "react-apollo";
+// assigned the alias compose for flowRight
+import { flowRight as compose } from "lodash";
+import Swal from "sweetalert2";
 // nodejs library that concatenates classes
 import classNames from "classnames";
 // core components
@@ -22,18 +27,13 @@ import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import InputAdornment from "@material-ui/core/InputAdornment";
+
 // @material-ui icons
 import Mail from "@material-ui/icons/Mail";
 
+// relative imports
+import { getCategoriesQuery } from "services/queries";
 import ecommerceHeader from "assets/img/jtsManok.jpg";
-import face1 from "assets/img/faces/card-profile6-square.jpg";
-import face2 from "assets/img/faces/christian.jpg";
-import face3 from "assets/img/faces/card-profile4-square.jpg";
-import face4 from "assets/img/faces/card-profile1-square.jpg";
-import face5 from "assets/img/faces/marc.jpg";
-import face6 from "assets/img/faces/kendall.jpg";
-import face7 from "assets/img/faces/card-profile5-square.jpg";
-import face8 from "assets/img/faces/card-profile2-square.jpg";
 
 import styles from "assets/jss/material-kit-pro-react/views/ecommerceStyle.js";
 
@@ -42,12 +42,27 @@ import Category from "./components/Category";
 
 const useStyles = makeStyles(styles);
 
-export default function EcommercePage() {
+function EcommercePage(props) {
+  console.log(props);
+
+  let categoryData;
+
+  if (props.data.loading) {
+    categoryData = "loading...";
+  } else {
+    categoryData = props.data.getCategories.map((category) => {
+      // console.log(category);
+      return <Category category={category.name} id={category.id} />;
+    });
+  }
+
+  const classes = useStyles();
+
   React.useEffect(() => {
     window.scrollTo(0, 0);
     document.body.scrollTop = 0;
   });
-  const classes = useStyles();
+
   return (
     <div>
       <Header
@@ -91,12 +106,13 @@ export default function EcommercePage() {
           <div className={classes.container}>
             <br />
             <GridContainer justify="center">
-              <Category category="Chicken" />
+              {categoryData}
+              {/* <Category category="Chicken" />
               <Category category="Pork" />
               <Category category="Soup" />
               <Category category="Seafood" />
               <Category category="Vegetables" />
-              <Category category="Dessert" />
+              <Category category="Dessert" /> */}
             </GridContainer>
             <br />
           </div>
@@ -136,3 +152,5 @@ export default function EcommercePage() {
     </div>
   );
 }
+
+export default graphql(getCategoriesQuery)(EcommercePage);
