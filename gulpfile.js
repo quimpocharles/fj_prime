@@ -9,17 +9,14 @@ gulp.task("licenses", async function() {
       gap.prependText(`/*!
 
 =========================================================
-* Now UI Kit PRO React - v1.0.0
+Let's make websites great again
 =========================================================
 
-* Product Page: https://www.creative-tim.com/product/now-ui-kit-pro-react
-* Copyright 2019 Creative Tim (http://www.creative-tim.com)
-
-* Coded by Creative Tim
+* Coded by Charles Quimpo
 
 =========================================================
 
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
 
 */`)
     )
@@ -32,17 +29,13 @@ gulp.task("licenses", async function() {
       gap.prependText(`<!--
 
 =========================================================
-* Now UI Kit PRO React - v1.0.0
+Let's make websites great again
 =========================================================
 
-* Product Page: https://www.creative-tim.com/product/now-ui-kit-pro-react
-* Copyright 2019 Creative Tim (http://www.creative-tim.com)
-
-* Coded by Creative Tim
+* Coded by Charles Quimpo
 
 =========================================================
 
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 -->`)
     )
@@ -55,17 +48,14 @@ gulp.task("licenses", async function() {
       gap.prependText(`/*!
 
 =========================================================
-* Now UI Kit PRO React - v1.0.0
+Let's make websites great again
 =========================================================
 
-* Product Page: https://www.creative-tim.com/product/now-ui-kit-pro-react
-* Copyright 2019 Creative Tim (http://www.creative-tim.com)
-
-* Coded by Creative Tim
+* Coded by Charles Quimpo
 
 =========================================================
 
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
 
 */`)
     )

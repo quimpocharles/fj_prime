@@ -1,27 +1,3 @@
-/*!
-
-=========================================================
-* Material Kit PRO React - v1.8.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-kit-pro-react
-* Copyright 2019 Creative Tim (https://www.creative-tim.com)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
-
-// ##############################
-// // // Function that converts from hex color to rgb color
-// // // Example: input = #9c27b0 => output = 156, 39, 176
-// // // Example: input = 9c27b0 => output = 156, 39, 176
-// // // Example: input = #999 => output = 153, 153, 153
-// // // Example: input = 999 => output = 153, 153, 153
-// #############################
 const hexToRgb = (input) => {
   input = input + "";
   input = input.replace("#", "");
@@ -94,7 +70,7 @@ const successColor = [
   "#66bb6a",
 ];
 const infoColor = [
-  "#00acc1",
+  "#1b1a65",
   "#26c6da",
   "#00acc1",
   "#00d3ee",

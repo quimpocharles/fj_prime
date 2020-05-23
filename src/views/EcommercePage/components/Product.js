@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import Button from "components/CustomButtons/Button.js";
 
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
@@ -13,15 +15,14 @@ import CardFooter from "components/Card/CardFooter.js";
 import CardAvatar from "components/Card/CardAvatar.js";
 import color1 from "assets/img/jtsManok.jpg";
 
-import { Link } from "react-router-dom";
-import Button from "components/CustomButtons/Button.js";
+import ProductModal from "./ProductDetails";
 
 import styles from "assets/jss/material-kit-pro-react/views/componentsSections/sectionCards.js";
 const useStyles = makeStyles(styles);
-const Category = (props) => {
+const Product = (props) => {
   console.log(props);
 
-  const categoryClickHandler = (e) => {
+  const productClickHandler = (e) => {
     // e.preventDefault();
     // console.log(e.currentTarget.value);
   };
@@ -43,25 +44,15 @@ const Category = (props) => {
           />
         </CardHeader>
         <CardBody>
-          <h6 className={classes.cardCategory}>{props.category}</h6>
+          <h6 className={classes.cardProduct}>{props.product}</h6>
 
           <h4 className={classes.cardTitle}>
-            <Link to={"/menu/" + props.id}>
-              <Button
-                color="danger"
-                block
-                round
-                className={classes.subscribeButton}
-                value={props.id}
-                onClick={categoryClickHandler}
-              >
-                SELECT
-              </Button>
-            </Link>
+            <ProductModal categories={props.categories} name={props.product} />
           </h4>
         </CardBody>
       </Card>
     </GridItem>
   );
 };
-export default Category;
+
+export default Product;

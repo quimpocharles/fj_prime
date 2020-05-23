@@ -19,40 +19,45 @@ import CustomInput from "components/CustomInput/CustomInput.js";
 import Footer from "components/Footer/Footer.js";
 // sections for this page
 import HeaderLinks from "components/Header/HeaderLinks.js";
-import SectionLatestOffers from "views/EcommercePage/Sections/SectionLatestOffers.js";
-import SectionProducts from "views/EcommercePage/Sections/SectionProducts.js";
-import SectionBlog from "views/EcommercePage/Sections/SectionBlog.js";
+
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import InputAdornment from "@material-ui/core/InputAdornment";
 
 // @material-ui icons
-import Mail from "@material-ui/icons/Mail";
 
 // relative imports
-import { getCategoriesQuery } from "services/queries";
+import {
+  getCategoriesQuery,
+  getCategoryQuery,
+  getProductsQuery,
+} from "services/queries";
 import ecommerceHeader from "assets/img/jtsManok.jpg";
 
 import styles from "assets/jss/material-kit-pro-react/views/ecommerceStyle.js";
 
 // relative import
 import Category from "./components/Category";
+import Product from "./components/Product";
 
 const useStyles = makeStyles(styles);
 
 function EcommercePage(props) {
-  console.log(props);
+  console.log(props.data);
 
-  let categoryData;
+  let productData;
 
   if (props.data.loading) {
-    categoryData = "loading...";
+    productData = "loading...";
   } else {
-    categoryData = props.data.getCategories.map((category) => {
-      // console.log(category);
-      return <Category category={category.name} id={category.id} />;
+    productData = props.data.getProducts.map((product) => {
+      console.log(product);
+      return (
+        <Product
+          product={product.name}
+          categories={product.categories}
+          key={product.id}
+        />
+      );
     });
   }
 
@@ -65,16 +70,6 @@ function EcommercePage(props) {
 
   return (
     <div>
-      <Header
-        brand="Material Kit PRO React"
-        links={<HeaderLinks dropdownHoverColor="info" />}
-        fixed
-        color="transparent"
-        changeColorOnScroll={{
-          height: 100,
-          color: "danger",
-        }}
-      />
       <Parallax image={require("assets/img/jtsManok.jpg")} filter="dark">
         <div className={classes.container}>
           <GridContainer>
@@ -105,15 +100,7 @@ function EcommercePage(props) {
         <div className={classes.section}>
           <div className={classes.container}>
             <br />
-            <GridContainer justify="center">
-              {categoryData}
-              {/* <Category category="Chicken" />
-              <Category category="Pork" />
-              <Category category="Soup" />
-              <Category category="Seafood" />
-              <Category category="Vegetables" />
-              <Category category="Dessert" /> */}
-            </GridContainer>
+            <GridContainer justify="center">{productData}</GridContainer>
             <br />
           </div>
         </div>
@@ -153,4 +140,4 @@ function EcommercePage(props) {
   );
 }
 
-export default graphql(getCategoriesQuery)(EcommercePage);
+export default graphql(getProductsQuery)(EcommercePage);

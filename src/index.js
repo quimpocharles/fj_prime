@@ -35,12 +35,13 @@ ReactDOM.render(
   <ApolloProvider client={client}>
     <Router history={hist}>
       <Switch>
+        <Route path="/menu/:id" component={EcommercePage} />
         <Route path="/about-us" component={AboutUsPage} />
         <Route path="/blog-post" component={BlogPostPage} />
         <Route path="/blog-posts" component={BlogPostsPage} />
         <Route path="/components" component={ComponentsPage} />
         <Route path="/contact-us" component={ContactUsPage} />
-        <Route path="/" component={EcommercePage} />
+        <Route exact path="/" component={EcommercePage} />
         <Route path="/landing-page" component={LandingPage} />
         <Route path="/login-page" component={LoginPage} />
         <Route path="/pricing" component={PricingPage} />

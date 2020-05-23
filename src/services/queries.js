@@ -9,4 +9,31 @@ const getCategoriesQuery = gql`
   }
 `;
 
-export { getCategoriesQuery };
+const getCategoryQuery = gql`
+  query($id: String) {
+    getCategory(id: $id) {
+      id
+      name
+      products {
+        id
+        name
+        price
+      }
+    }
+  }
+`;
+
+const getProductsQuery = gql`
+  {
+    getProducts {
+      name
+      categories {
+        id
+        name
+        price
+      }
+    }
+  }
+`;
+
+export { getCategoriesQuery, getCategoryQuery, getProductsQuery };
