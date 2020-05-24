@@ -10,10 +10,11 @@ import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
 import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
+import CardMedia from "@material-ui/core/CardMedia";
 import CardBody from "components/Card/CardBody.js";
 import CardFooter from "components/Card/CardFooter.js";
 import CardAvatar from "components/Card/CardAvatar.js";
-import color1 from "assets/img/jtsManok.jpg";
+import color1 from "assets/img/bpapa.png";
 
 import ProductModal from "./ProductDetails";
 
@@ -33,7 +34,11 @@ const Product = (props) => {
       <Card blog>
         <CardHeader image>
           <a href="#pablo" onClick={(e) => e.preventDefault()}>
-            <img src={color1} alt="..." />
+            <img
+              src={color1}
+              alt="shell choices"
+              style={{ backgroundColor: "#fff203" }}
+            />
           </a>
           <div
             className={classes.coloredShadow}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 // nodejs library to set properties for components
 import PropTypes from "prop-types";
 // nodejs library that concatenates classes
@@ -19,6 +19,11 @@ import styles from "assets/jss/material-kit-pro-react/components/customInputStyl
 const useStyles = makeStyles(styles);
 
 export default function CustomInput(props) {
+  const [firstName, setFirstname] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirm, setConfirm] = useState("");
   const {
     formControlProps,
     labelText,
@@ -28,25 +33,25 @@ export default function CustomInput(props) {
     error,
     white,
     inputRootCustomClasses,
-    success
+    success,
   } = props;
   const classes = useStyles();
   const labelClasses = classNames({
     [" " + classes.labelRootError]: error,
-    [" " + classes.labelRootSuccess]: success && !error
+    [" " + classes.labelRootSuccess]: success && !error,
   });
   const underlineClasses = classNames({
     [classes.underlineError]: error,
     [classes.underlineSuccess]: success && !error,
     [classes.underline]: true,
-    [classes.whiteUnderline]: white
+    [classes.whiteUnderline]: white,
   });
   const marginTop = classNames({
-    [inputRootCustomClasses]: inputRootCustomClasses !== undefined
+    [inputRootCustomClasses]: inputRootCustomClasses !== undefined,
   });
   const inputClasses = classNames({
     [classes.input]: true,
-    [classes.whiteInput]: white
+    [classes.whiteInput]: white,
   });
   var formControlClasses;
   if (formControlProps !== undefined) {
@@ -57,6 +62,39 @@ export default function CustomInput(props) {
   } else {
     formControlClasses = classes.formControl;
   }
+
+  const inputChangeHandler = (e) => {
+    console.log(e.target.getAttribute("name"));
+
+    if (e.target.getAttribute("name") === "firstName") {
+      setFirstname(e.target.value);
+    }
+
+    if (e.target.getAttribute("name") === "lastName") {
+      setFirstname(e.target.value);
+    }
+
+    if (e.target.getAttribute("name") === "email") {
+      setEmail(e.target.value);
+    }
+
+    if (e.target.getAttribute("name") === "password") {
+      setPassword(e.target.value);
+    }
+
+    if (e.target.getAttribute("name") === "confirm") {
+      setConfirm(e.target.value);
+    }
+  };
+
+  useEffect(() => {
+    console.log(firstName);
+    console.log(lastName);
+    console.log(email);
+    console.log(password);
+    console.log(confirm);
+  });
+
   return (
     <FormControl {...formControlProps} className={formControlClasses}>
       {labelText !== undefined ? (
@@ -73,9 +111,10 @@ export default function CustomInput(props) {
           input: inputClasses,
           root: marginTop,
           disabled: classes.disabled,
-          underline: underlineClasses
+          underline: underlineClasses,
         }}
         id={id}
+        onChange={inputChangeHandler}
         {...inputProps}
       />
       {error ? (
@@ -96,5 +135,5 @@ CustomInput.propTypes = {
   inputRootCustomClasses: PropTypes.string,
   error: PropTypes.bool,
   success: PropTypes.bool,
-  white: PropTypes.bool
+  white: PropTypes.bool,
 };

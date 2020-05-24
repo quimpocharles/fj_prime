@@ -12,79 +12,184 @@ import GridItem from "components/Grid/GridItem.js";
 import basicsStyle from "assets/jss/material-kit-pro-react/views/componentsSections/basicsStyle.js";
 
 const useStyles = makeStyles(basicsStyle);
-const Quantity = () => {
-  const [simpleSelect, setSimpleSelect] = React.useState("");
+const Quantity = (props) => {
+  console.log(props);
+  const [simpleSelect, setSimpleSelect] = useState("");
+  let productTotal;
+
   const handleSimple = (event) => {
+    console.log(event.target.value);
     setSimpleSelect(event.target.value);
+
+    props.getQuantity(event.target.value);
   };
 
   const classes = useStyles();
-  return (
-    <div id="select">
-      <GridContainer>
-        <div className={classes.title}>
-          <h3>Customizable Select</h3>
-        </div>
 
-        <GridItem xs={12} sm={6} md={6} lg={5}>
-          <FormControl fullWidth className={classes.selectFormControl}>
-            <InputLabel htmlFor="simple-select" className={classes.selectLabel}>
-              Single Select
-            </InputLabel>
-            <Select
-              MenuProps={{
-                className: classes.selectMenu,
-              }}
+  // productTotal =
+  //   props.itemTotal !== "" && typeof props.itemTotal !== typeof NaN
+  //     ? ` Total: ₱ ${props.itemTotal}`
+  //     : "";
+
+  if (props.itemTotal == "") {
+    productTotal = "";
+  } else {
+    if (!isNaN(props.itemTotal)) {
+      productTotal = ` Total: ₱ ${props.itemTotal}`;
+    } else {
+      productTotal = "";
+    }
+  }
+
+  console.log(typeof props.itemTotal);
+
+  return (
+    <GridContainer>
+      <GridItem xs={6} sm={6} md={8}>
+        <FormControl fullWidth className={classes.selectFormControl}>
+          <InputLabel htmlFor="quantity" className={classes.selectLabel}>
+            Quantity
+          </InputLabel>
+          <Select
+            MenuProps={{
+              className: classes.selectMenu,
+            }}
+            classes={{
+              select: classes.select,
+            }}
+            value={simpleSelect}
+            onChange={handleSimple}
+            inputProps={{
+              name: "simpleSelect",
+              id: "quantity",
+            }}
+          >
+            <MenuItem
+              disabled
               classes={{
-                select: classes.select,
-              }}
-              value={simpleSelect}
-              onChange={handleSimple}
-              inputProps={{
-                name: "simpleSelect",
-                id: "simple-select",
+                root: classes.selectMenuItem,
               }}
             >
-              <MenuItem
-                disabled
-                classes={{
-                  root: classes.selectMenuItem,
-                }}
-              >
-                Single Select
-              </MenuItem>
-              <MenuItem
-                classes={{
-                  root: classes.selectMenuItem,
-                  selected: classes.selectMenuItemSelected,
-                }}
-                value="2"
-              >
-                Paris
-              </MenuItem>
-              <MenuItem
-                classes={{
-                  root: classes.selectMenuItem,
-                  selected: classes.selectMenuItemSelected,
-                }}
-                value="3"
-              >
-                Bucharest
-              </MenuItem>
-              <MenuItem
-                classes={{
-                  root: classes.selectMenuItem,
-                  selected: classes.selectMenuItemSelected,
-                }}
-                value="4"
-              >
-                Rome
-              </MenuItem>
-            </Select>
-          </FormControl>
-        </GridItem>
-      </GridContainer>
-    </div>
+              Select Quantity
+            </MenuItem>
+            <MenuItem
+              classes={{
+                root: classes.selectMenuItem,
+                selected: classes.selectMenuItemSelected,
+              }}
+              value="1"
+            >
+              1
+            </MenuItem>
+            <MenuItem
+              classes={{
+                root: classes.selectMenuItem,
+                selected: classes.selectMenuItemSelected,
+              }}
+              value="2"
+            >
+              2
+            </MenuItem>
+
+            <MenuItem
+              classes={{
+                root: classes.selectMenuItem,
+                selected: classes.selectMenuItemSelected,
+              }}
+              value="4"
+            >
+              4
+            </MenuItem>
+
+            <MenuItem
+              classes={{
+                root: classes.selectMenuItem,
+                selected: classes.selectMenuItemSelected,
+              }}
+              value="5"
+            >
+              5
+            </MenuItem>
+
+            <MenuItem
+              classes={{
+                root: classes.selectMenuItem,
+                selected: classes.selectMenuItemSelected,
+              }}
+              value="6"
+            >
+              6
+            </MenuItem>
+
+            <MenuItem
+              classes={{
+                root: classes.selectMenuItem,
+                selected: classes.selectMenuItemSelected,
+              }}
+              value="7"
+            >
+              7
+            </MenuItem>
+
+            <MenuItem
+              classes={{
+                root: classes.selectMenuItem,
+                selected: classes.selectMenuItemSelected,
+              }}
+              value="8"
+            >
+              8
+            </MenuItem>
+
+            <MenuItem
+              classes={{
+                root: classes.selectMenuItem,
+                selected: classes.selectMenuItemSelected,
+              }}
+              value="9"
+            >
+              9
+            </MenuItem>
+
+            <MenuItem
+              classes={{
+                root: classes.selectMenuItem,
+                selected: classes.selectMenuItemSelected,
+              }}
+              value="10"
+            >
+              10
+            </MenuItem>
+
+            <MenuItem
+              classes={{
+                root: classes.selectMenuItem,
+                selected: classes.selectMenuItemSelected,
+              }}
+              value="11"
+            >
+              11
+            </MenuItem>
+
+            <MenuItem
+              classes={{
+                root: classes.selectMenuItem,
+                selected: classes.selectMenuItemSelected,
+              }}
+              value="12"
+            >
+              12
+            </MenuItem>
+          </Select>
+        </FormControl>
+      </GridItem>
+
+      <GridItem xs={6} sm={6} md={4}>
+        <h4 className={classes.title} style={{ textAlign: "center" }}>
+          {productTotal}
+        </h4>
+      </GridItem>
+    </GridContainer>
   );
 };
 

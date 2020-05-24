@@ -1,5 +1,5 @@
 /*eslint-disable*/
-import React from "react";
+import React, { useState } from "react";
 
 import { graphql } from "react-apollo";
 // assigned the alias compose for flowRight
@@ -31,7 +31,8 @@ import {
   getCategoryQuery,
   getProductsQuery,
 } from "services/queries";
-import ecommerceHeader from "assets/img/jtsManok.jpg";
+import ecommerceHeader from "assets/img/qwe.jpg";
+import mainBg from "assets/img/bg01.png";
 
 import styles from "assets/jss/material-kit-pro-react/views/ecommerceStyle.js";
 
@@ -42,7 +43,9 @@ import Product from "./components/Product";
 const useStyles = makeStyles(styles);
 
 function EcommercePage(props) {
-  console.log(props.data);
+  // console.log(props.data);
+  const [cart, setCart] = useState([]);
+  console.log(cart);
 
   let productData;
 
@@ -69,8 +72,8 @@ function EcommercePage(props) {
   });
 
   return (
-    <div>
-      <Parallax image={require("assets/img/jtsManok.jpg")} filter="dark">
+    <>
+      <Parallax image={require("assets/img/qwe.jpg")} filter="dark" small>
         <div className={classes.container}>
           <GridContainer>
             <GridItem
@@ -96,10 +99,15 @@ function EcommercePage(props) {
         </div>
       </Parallax>
 
-      <div className={classNames(classes.main, classes.mainRaised)}>
+      <div
+        className={classNames(classes.main, classes.mainRaised)}
+        style={{ backgroundImage: `url(${mainBg})` }}
+      >
         <div className={classes.section}>
           <div className={classes.container}>
-            <br />
+            <h2 className={classes.title} style={{ textAlign: "center" }}>
+              Pick A Shell
+            </h2>
             <GridContainer justify="center">{productData}</GridContainer>
             <br />
           </div>
@@ -124,7 +132,9 @@ function EcommercePage(props) {
               className={classNames(classes.mlAuto, classes.mrAuto)}
             >
               <div className={classes.textCenter}>
-                <h3 className={classes.title}>JT's Manukan Online Delivery</h3>
+                <h3 className={classes.title}>
+                  FJ Primeholdings Online Delivery
+                </h3>
                 <p className={classes.description}>
                   Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
                   do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -136,7 +146,7 @@ function EcommercePage(props) {
           </GridContainer>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

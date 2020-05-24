@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { makeStyles } from "@material-ui/core/styles";
-import LibraryBooks from "@material-ui/icons/LibraryBooks";
+import NextArrow from "@material-ui/icons/NavigateNext";
 import Close from "@material-ui/icons/Close";
 import Slide from "@material-ui/core/Slide";
 import Dialog from "@material-ui/core/Dialog";
@@ -27,8 +27,27 @@ Transition.displayName = "Transition";
 
 const ProductDetails = (props) => {
   const [classicModal, setClassicModal] = useState(false);
+  const [productPrice, setProductPrice] = useState("");
+  const [productQuantity, setProductQuantity] = useState(1);
+  const [total, setTotal] = useState("");
 
-  console.log(props.categories);
+  const getTotal = (quantity) => {
+    let productTotal = parseFloat(productPrice) * parseFloat(quantity);
+    setTotal(productTotal);
+  };
+
+  const getPrice = (price) => {
+    setProductPrice(price);
+    getQuantity(productQuantity);
+  };
+
+  const getQuantity = (quantity) => {
+    setProductQuantity(quantity);
+  };
+
+  useEffect(() => {
+    getTotal(productQuantity);
+  });
 
   const classes = useStyles();
   return (
@@ -41,8 +60,8 @@ const ProductDetails = (props) => {
           color="info"
           className={classes.beardBorder}
         >
-          <LibraryBooks />
-          Select
+          Select Shell
+          <NextArrow fontSize="small" />
         </Button>
         <Dialog
           classes={{
@@ -71,14 +90,18 @@ const ProductDetails = (props) => {
               {" "}
               <Close className={classes.modalClose} />
             </Button>
-            <h4 className={classes.modalTitle}>{props.name.toUpperCase()}</h4>
+            <h4 className={classes.title}>{props.name.toUpperCase()}</h4>
           </DialogTitle>
           <DialogContent
             id="classic-modal-slide-description"
             className={classes.modalBody}
           >
-            <Flavors categories={props.categories} name={props.name} />
-            <Quantity />
+            <Flavors
+              categories={props.categories}
+              name={props.name}
+              getPrice={getPrice}
+            />
+            <Quantity getQuantity={getQuantity} itemTotal={total} />
           </DialogContent>
           <DialogActions className={classes.modalFooter}>
             <Button link>Nice Button</Button>

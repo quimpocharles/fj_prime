@@ -161,7 +161,7 @@ const card = {
 };
 
 const defaultFont = {
-  fontFamily: '"Montserrat", "Roboto", "Helvetica", "Arial", sans-serif',
+  fontFamily: '"Roboto-Black", "Helvetica", "Arial", sans-serif',
   fontWeight: "400",
   lineHeight: "1.5em",
 };
@@ -238,7 +238,7 @@ const roseBoxShadow = {
 const warningCardHeader = {
   color: whiteColor,
   background:
-    "linear-gradient(60deg, " + warningColor[1] + ", " + warningColor[2] + ")",
+    "linear-gradient(60deg, " + warningColor[0] + ", " + warningColor[1] + ")",
   ...warningBoxShadow,
 };
 const successCardHeader = {
@@ -256,7 +256,7 @@ const dangerCardHeader = {
 const infoCardHeader = {
   color: whiteColor,
   background:
-    "linear-gradient(60deg, " + infoColor[1] + ", " + infoColor[2] + ")",
+    "linear-gradient(60deg, " + infoColor[0] + ", " + infoColor[1] + ")",
   ...infoBoxShadow,
 };
 const primaryCardHeader = {
@@ -303,11 +303,12 @@ const defaultBoxShadow = {
 const title = {
   color: grayColor[1],
   textDecoration: "none",
-  fontWeight: "700",
+  fontWeight: "900",
   marginTop: "30px",
   marginBottom: "25px",
   minHeight: "32px",
-  fontFamily: `"Roboto Slab", "Times New Roman", serif`,
+  fontStyle: "italic",
+  fontFamily: `"Roboto", "Arial", sans-serif`,
 };
 
 const cardTitle = {
@@ -331,7 +332,9 @@ const cardSubtitle = {
 };
 
 const main = {
-  background: "#FAF2E6",
+  backgroundSize: "cover",
+  backgroundRepeat: "no-repeat",
+  backgroundColor: "#f2f2f2",
   position: "relative",
   zIndex: "3",
 };

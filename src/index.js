@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import Loadable from "react-loadable";
 import { createBrowserHistory } from "history";
 import { Router, Route, Switch } from "react-router";
 import { ApolloProvider } from "react-apollo";
@@ -9,11 +10,8 @@ import "assets/scss/material-kit-pro-react.scss?v=1.8.0";
 
 // pages for this product
 import AboutUsPage from "views/AboutUsPage/AboutUsPage.js";
-import BlogPostPage from "views/BlogPostPage/BlogPostPage.js";
-import BlogPostsPage from "views/BlogPostsPage/BlogPostsPage.js";
 import ComponentsPage from "views/ComponentsPage/ComponentsPage.js";
 import ContactUsPage from "views/ContactUsPage/ContactUsPage.js";
-import EcommercePage from "views/EcommercePage/EcommercePage.js";
 import LandingPage from "views/LandingPage/LandingPage.js";
 import LoginPage from "views/LoginPage/LoginPage.js";
 import PresentationPage from "views/PresentationPage/PresentationPage.js";
@@ -25,31 +23,45 @@ import ShoppingCartPage from "views/ShoppingCartPage/ShoppingCartPage.js";
 import SignupPage from "views/SignupPage/SignupPage.js";
 import ErrorPage from "views/ErrorPage/ErrorPage.js";
 
+import "antd/dist/antd.css";
+
+const Loading = () => (
+  <div className="sk-folding-cube">
+    <div className="sk-cube1 sk-cube"></div>
+    <div className="sk-cube2 sk-cube"></div>
+    <div className="sk-cube4 sk-cube"></div>
+    <div className="sk-cube3 sk-cube"></div>
+  </div>
+);
+
 var hist = createBrowserHistory();
 
 const client = new ApolloClient({
   uri: "http://localhost:4000/graphql",
 });
 
+const EcommercePage = Loadable({
+  loader: () => import("views/EcommercePage/EcommercePage"),
+  loading: Loading,
+});
+
 ReactDOM.render(
   <ApolloProvider client={client}>
     <Router history={hist}>
       <Switch>
-        <Route path="/menu/:id" component={EcommercePage} />
         <Route path="/about-us" component={AboutUsPage} />
-        <Route path="/blog-post" component={BlogPostPage} />
-        <Route path="/blog-posts" component={BlogPostsPage} />
+
         <Route path="/components" component={ComponentsPage} />
         <Route path="/contact-us" component={ContactUsPage} />
         <Route exact path="/" component={EcommercePage} />
         <Route path="/landing-page" component={LandingPage} />
-        <Route path="/login-page" component={LoginPage} />
+        <Route exact path="/login" component={LoginPage} />
         <Route path="/pricing" component={PricingPage} />
         <Route path="/profile-page" component={ProfilePage} />
         <Route path="/product-page" component={ProductPage} />
         <Route path="/sections" component={SectionsPage} />
         <Route path="/shopping-cart-page" component={ShoppingCartPage} />
-        <Route path="/signup-page" component={SignupPage} />
+        <Route path="/register" component={SignupPage} />
         <Route path="/error-page" component={ErrorPage} />
         <Route path="/present" component={PresentationPage} />
       </Switch>

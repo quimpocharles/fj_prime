@@ -26,6 +26,7 @@ const getCategoryQuery = gql`
 const getProductsQuery = gql`
   {
     getProducts {
+      id
       name
       categories {
         id

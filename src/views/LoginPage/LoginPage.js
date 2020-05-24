@@ -1,5 +1,8 @@
 /*eslint-disable*/
-import React from "react";
+import React, { useState } from "react";
+import clsx from "clsx";
+import { Link } from "react-router-dom";
+
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import InputAdornment from "@material-ui/core/InputAdornment";
@@ -11,6 +14,7 @@ import Email from "@material-ui/icons/Email";
 import Favorite from "@material-ui/icons/Favorite";
 import Face from "@material-ui/icons/Face";
 // core components
+
 import Header from "components/Header/Header.js";
 import HeaderLinks from "components/Header/HeaderLinks.js";
 import Footer from "components/Footer/Footer.js";
@@ -20,34 +24,54 @@ import Button from "components/CustomButtons/Button.js";
 import Card from "components/Card/Card.js";
 import CardBody from "components/Card/CardBody.js";
 import CardHeader from "components/Card/CardHeader.js";
-import CustomInput from "components/CustomInput/CustomInput.js";
+import FormControl from "@material-ui/core/FormControl";
+import Input from "@material-ui/core/Input";
+import InputLabel from "@material-ui/core/InputLabel";
+import IconButton from "@material-ui/core/IconButton";
+import Visibility from "@material-ui/icons/Visibility";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
 
 import loginPageStyle from "assets/jss/material-kit-pro-react/views/loginPageStyle.js";
 
-import image from "assets/img/bg7.jpg";
+import image from "assets/img/bbg.jpg";
 
 const useStyles = makeStyles(loginPageStyle);
 
 export default function LoginPage() {
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+
   React.useEffect(() => {
     window.scrollTo(0, 0);
     document.body.scrollTop = 0;
   });
+
+  const emailChangeHandler = (e) => {
+    setEmail(e.target.value);
+    console.log(e.target.value);
+  };
+
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const changeHandlerPassword = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
   const classes = useStyles();
   return (
     <div>
-      <Header
-        absolute
-        color="transparent"
-        brand="Material Kit PRO React"
-        links={<HeaderLinks dropdownHoverColor="info" />}
-      />
       <div
         className={classes.pageHeader}
         style={{
           backgroundImage: "url(" + image + ")",
           backgroundSize: "cover",
-          backgroundPosition: "top center"
+          backgroundPosition: "top center",
         }}
       >
         <div className={classes.container}>
@@ -56,158 +80,78 @@ export default function LoginPage() {
               <Card>
                 <form className={classes.form}>
                   <CardHeader
-                    color="primary"
+                    color="info"
                     signup
                     className={classes.cardHeader}
                   >
-                    <h4 className={classes.cardTitle}>Login</h4>
-                    <div className={classes.socialLine}>
-                      <Button
-                        justIcon
-                        color="transparent"
-                        className={classes.iconButtons}
-                        onClick={e => e.preventDefault()}
-                      >
-                        <i className="fab fa-twitter" />
-                      </Button>
-                      <Button
-                        justIcon
-                        color="transparent"
-                        className={classes.iconButtons}
-                        onClick={e => e.preventDefault()}
-                      >
-                        <i className="fab fa-facebook" />
-                      </Button>
-                      <Button
-                        justIcon
-                        color="transparent"
-                        className={classes.iconButtons}
-                        onClick={e => e.preventDefault()}
-                      >
-                        <i className="fab fa-google-plus-g" />
-                      </Button>
-                    </div>
+                    <h4 className={classes.cardTitle}>
+                      FJ Primeholdings Online Delivery
+                    </h4>
                   </CardHeader>
-                  <p className={classes.description + " " + classes.textCenter}>
-                    Or Be Classical
-                  </p>
+
                   <CardBody signup>
-                    <CustomInput
-                      id="first"
-                      formControlProps={{
-                        fullWidth: true
-                      }}
-                      inputProps={{
-                        placeholder: "First Name...",
-                        type: "text",
-                        startAdornment: (
+                    <FormControl fullWidth margin="normal">
+                      <InputLabel htmlFor="email">Email </InputLabel>
+                      <Input
+                        id="email"
+                        startAdornment={
                           <InputAdornment position="start">
-                            <Face className={classes.inputIconsColor} />
+                            <Email fontSize="small" />
                           </InputAdornment>
-                        )
-                      }}
-                    />
-                    <CustomInput
-                      id="email"
-                      formControlProps={{
-                        fullWidth: true
-                      }}
-                      inputProps={{
-                        placeholder: "Email...",
-                        type: "email",
-                        startAdornment: (
-                          <InputAdornment position="start">
-                            <Email className={classes.inputIconsColor} />
+                        }
+                        placeholder="juandelacruz@gmail.com"
+                        onChange={emailChangeHandler}
+                      />
+                    </FormControl>
+
+                    <FormControl
+                      className={clsx(classes.margin, classes.textField)}
+                      variant="filled"
+                      fullWidth
+                      margin="normal"
+                    >
+                      <InputLabel htmlFor="filled-adornment-password">
+                        Password
+                      </InputLabel>
+                      <Input
+                        id="filled-adornment-password"
+                        type={showPassword ? "text" : "password"}
+                        value={password}
+                        onChange={changeHandlerPassword}
+                        endAdornment={
+                          <InputAdornment position="end">
+                            <IconButton
+                              aria-label="toggle password visibility"
+                              onClick={handleClickShowPassword}
+                              onMouseDown={handleMouseDownPassword}
+                              edge="end"
+                            >
+                              {showPassword ? (
+                                <Visibility />
+                              ) : (
+                                <VisibilityOff />
+                              )}
+                            </IconButton>
                           </InputAdornment>
-                        )
-                      }}
-                    />
-                    <CustomInput
-                      id="pass"
-                      formControlProps={{
-                        fullWidth: true
-                      }}
-                      inputProps={{
-                        placeholder: "Password",
-                        type: "password",
-                        startAdornment: (
-                          <InputAdornment position="start">
-                            <Icon className={classes.inputIconsColor}>
-                              lock_utline
-                            </Icon>
-                          </InputAdornment>
-                        ),
-                        autoComplete: "off"
-                      }}
-                    />
+                        }
+                      />
+                    </FormControl>
+                    <Button color="info" fullWidth>
+                      Login
+                    </Button>
                   </CardBody>
                   <div className={classes.textCenter}>
-                    <Button simple color="primary" size="lg">
-                      Get started
-                    </Button>
+                    <Link to="/register">
+                      <Button color="info" small simple>
+                        <small>Register</small>
+                      </Button>
+                    </Link>
                   </div>
                 </form>
               </Card>
             </GridItem>
           </GridContainer>
         </div>
-        <Footer
-          className={classes.footer}
-          content={
-            <div>
-              <div className={classes.left}>
-                <List className={classes.list}>
-                  <ListItem className={classes.inlineBlock}>
-                    <a
-                      href="https://www.creative-tim.com/?ref=mkpr-login"
-                      target="_blank"
-                      className={classes.block}
-                    >
-                      Creative Tim
-                    </a>
-                  </ListItem>
-                  <ListItem className={classes.inlineBlock}>
-                    <a
-                      href="https://www.creative-tim.com/presentation?ref=mkpr-login"
-                      target="_blank"
-                      className={classes.block}
-                    >
-                      About us
-                    </a>
-                  </ListItem>
-                  <ListItem className={classes.inlineBlock}>
-                    <a
-                      href="//blog.creative-tim.com/"
-                      className={classes.block}
-                    >
-                      Blog
-                    </a>
-                  </ListItem>
-                  <ListItem className={classes.inlineBlock}>
-                    <a
-                      href="https://www.creative-tim.com/license?ref=mkpr-login"
-                      target="_blank"
-                      className={classes.block}
-                    >
-                      Licenses
-                    </a>
-                  </ListItem>
-                </List>
-              </div>
-              <div className={classes.right}>
-                &copy; {1900 + new Date().getYear()} , made with{" "}
-                <Favorite className={classes.icon} /> by{" "}
-                <a
-                  href="https://www.creative-tim.com?ref=mkpr-login"
-                  target="_blank"
-                >
-                  Creative Tim
-                </a>{" "}
-                for a better web
-              </div>
-            </div>
-          }
-        />
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import Select from "@material-ui/core/Select";
@@ -13,10 +13,12 @@ import basicsStyle from "assets/jss/material-kit-pro-react/views/componentsSecti
 
 const useStyles = makeStyles(basicsStyle);
 const Flavors = (props) => {
-  const [simpleSelect, setSimpleSelect] = React.useState("");
+  const [simpleSelect, setSimpleSelect] = useState("");
+  const [price, setPrice] = useState("");
   const handleSimple = (event) => {
-    console.log(event.target);
     setSimpleSelect(event.target.value);
+    setPrice(event.currentTarget.getAttribute("data-price"));
+    props.getPrice(event.currentTarget.getAttribute("data-price"));
   };
 
   let categoryOptions;
@@ -30,50 +32,59 @@ const Flavors = (props) => {
           root: classes.selectMenuItem,
           selected: classes.selectMenuItemSelected,
         }}
-        value={category.price}
+        data-price={category.price}
+        value={category.id}
         key={category.id}
       >
         {category.name.toUpperCase()}
       </MenuItem>
     );
   });
+
+  useEffect(() => {
+    console.log("value of price " + price);
+  });
   return (
-    <div id="select">
-      <GridContainer>
-        <GridItem xs={12} sm={6} md={6}>
-          <FormControl fullWidth className={classes.selectFormControl}>
-            <InputLabel htmlFor="simple-select" className={classes.selectLabel}>
-              Flavors
-            </InputLabel>
-            <Select
-              MenuProps={{
-                className: classes.selectMenu,
-              }}
+    <GridContainer>
+      <GridItem xs={8} sm={8} md={8}>
+        <FormControl fullWidth className={classes.selectFormControl}>
+          <InputLabel htmlFor="simple-select" className={classes.selectLabel}>
+            Choose a Filling
+          </InputLabel>
+          <Select
+            MenuProps={{
+              className: classes.selectMenu,
+            }}
+            classes={{
+              select: classes.select,
+            }}
+            value={simpleSelect}
+            onChange={handleSimple}
+            inputProps={{
+              name: "category",
+              id: "simple-select",
+            }}
+          >
+            <MenuItem
+              disabled
               classes={{
-                select: classes.select,
-              }}
-              value={simpleSelect}
-              onChange={handleSimple}
-              inputProps={{
-                name: "simpleSelect",
-                id: "simple-select",
+                root: classes.selectMenuItem,
               }}
             >
-              <MenuItem
-                disabled
-                classes={{
-                  root: classes.selectMenuItem,
-                }}
-              >
-                Select Your Flavor
-              </MenuItem>
+              Choose a Filling
+            </MenuItem>
 
-              {categoryOptions}
-            </Select>
-          </FormControl>
-        </GridItem>
-      </GridContainer>
-    </div>
+            {categoryOptions}
+          </Select>
+        </FormControl>
+      </GridItem>
+      <GridItem xs={4} sm={4} md={4}>
+        <h4 className={classes.title} style={{ textAlign: "center" }}>
+          {" "}
+          ₱ {price} / item
+        </h4>
+      </GridItem>
+    </GridContainer>
   );
 };
 
