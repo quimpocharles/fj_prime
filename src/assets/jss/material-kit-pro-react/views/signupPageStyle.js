@@ -144,6 +144,11 @@ const signupPageStyle = {
   termsLink: {
     color: "#1b1a65",
   },
+
+  mtop: {
+    marginTop: "15px",
+    marginBottom: "15px",
+  },
 };
 
 export default signupPageStyle;

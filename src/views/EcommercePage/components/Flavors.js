@@ -19,6 +19,7 @@ const Flavors = (props) => {
     setSimpleSelect(event.target.value);
     setPrice(event.currentTarget.getAttribute("data-price"));
     props.getPrice(event.currentTarget.getAttribute("data-price"));
+    props.getCategoryId(event.target.value);
   };
 
   let categoryOptions;
@@ -42,7 +43,8 @@ const Flavors = (props) => {
   });
 
   useEffect(() => {
-    console.log("value of price " + price);
+    // console.log(simpleSelect);
+    // console.log("value of price " + price);
   });
   return (
     <GridContainer>

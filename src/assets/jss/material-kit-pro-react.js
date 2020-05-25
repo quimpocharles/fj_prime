@@ -161,7 +161,7 @@ const card = {
 };
 
 const defaultFont = {
-  fontFamily: '"Roboto-Black", "Helvetica", "Arial", sans-serif',
+  fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
   fontWeight: "400",
   lineHeight: "1.5em",
 };
@@ -256,7 +256,7 @@ const dangerCardHeader = {
 const infoCardHeader = {
   color: whiteColor,
   background:
-    "linear-gradient(60deg, " + infoColor[0] + ", " + infoColor[1] + ")",
+    "linear-gradient(60deg, " + infoColor[0] + ", " + infoColor[0] + ")",
   ...infoBoxShadow,
 };
 const primaryCardHeader = {

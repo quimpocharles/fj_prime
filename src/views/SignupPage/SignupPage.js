@@ -212,6 +212,16 @@ function SignUpPage({ ...rest }) {
   const classes = useStyles();
   return (
     <div>
+      <Header
+        brand="FJ Primeholdings"
+        links={<HeaderLinks dropdownHoverColor="info" />}
+        fixed
+        color="transparent"
+        changeColorOnScroll={{
+          height: 100,
+          color: "info",
+        }}
+      />
       <div
         className={classes.pageHeader}
         style={{
@@ -411,8 +421,13 @@ function SignUpPage({ ...rest }) {
                           }
                         />
                         <div className={classes.textCenter}>
-                          <Button type="submit" round color="info" fullWidth>
-                            Get started
+                          <Button
+                            type="submit"
+                            color="info"
+                            fullWidth
+                            className={classes.mtop}
+                          >
+                            Register
                           </Button>
                         </div>
                       </form>

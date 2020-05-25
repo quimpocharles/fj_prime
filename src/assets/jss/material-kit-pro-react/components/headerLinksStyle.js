@@ -2,10 +2,7 @@ import {
   grayColor,
   whiteColor,
   mlAuto,
-  mrAuto,
   hexToRgb,
-  dangerColor,
-  warningColor,
 } from "assets/jss/material-kit-pro-react.js";
 
 import tooltip from "assets/jss/material-kit-pro-react/tooltipsStyle.js";
@@ -20,17 +17,16 @@ const headerLinksStyle = (theme) => ({
       WebkitBoxDirection: "normal",
       MsFlexDirection: "row",
       flexDirection: "row",
-      flex: 0,
     },
     [theme.breakpoints.down("sm")]: {
       display: "block",
     },
+    marginTop: "0px",
     display: "flex",
     paddingLeft: "0",
     marginBottom: "0",
     listStyle: "none",
     padding: "0",
-    justify: "center",
   },
   listItem: {
     float: "left",
@@ -66,7 +62,8 @@ const headerLinksStyle = (theme) => ({
     position: "relative",
     padding: "0.9375rem",
     fontWeight: "700",
-    fontSize: "12px",
+    letterSpacing: "5px",
+    fontSize: "0.80em",
     textTransform: "uppercase",
     lineHeight: "20px",
     textDecoration: "none",
@@ -116,14 +113,6 @@ const headerLinksStyle = (theme) => ({
     textDecoration: "none",
     margin: "0px",
     display: "inline-flex",
-    backgroundColor: warningColor[0],
-    border: "2px solid #1d1d1d",
-    color: "#1d1d1d",
-    fontWeight: 700,
-    [theme.breakpoints.down("md")]: {
-      backgroundColor: dangerColor[0],
-      color: "#fff",
-    },
     [theme.breakpoints.down("sm")]: {
       width: "calc(100% - 30px)",
       marginLeft: "15px",
@@ -136,9 +125,6 @@ const headerLinksStyle = (theme) => ({
     },
     "& $icons": {
       marginRight: "3px",
-    },
-    "&:hover,&:focus": {
-      backgroundColor: warningColor[0],
     },
   },
   notificationNavLink: {
@@ -215,10 +201,6 @@ const headerLinksStyle = (theme) => ({
     alignItems: "center",
   },
   mlAuto,
-  mrAuto,
-  btn: {
-    fontWeight: 700,
-  },
 });
 
 export default headerLinksStyle;

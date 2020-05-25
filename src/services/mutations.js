@@ -27,4 +27,35 @@ const createMemberMutation = gql`
 	}
 `;
 
-export { createMemberMutation };
+const logInMutation = gql`
+	mutation($email: String!, $password: String!) {
+		logInMember(email: $email, password: $password) {
+			id
+			first_name
+			last_name
+			email
+			cart {
+				quantity
+				itemId
+			}
+		}
+	}
+`;
+
+const addToCartMutation = gql`
+	mutation(
+		$userId: String
+		$itemId: String
+		$quantity: Int!
+		$categoryId: String
+	) {
+		addToCart(
+			userId: $userId
+			itemId: $itemId
+			quantity: $quantity
+			categoryId: $categoryId
+		)
+	}
+`;
+
+export { createMemberMutation, logInMutation, addToCartMutation };

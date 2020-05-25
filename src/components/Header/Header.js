@@ -12,12 +12,12 @@ import IconButton from "@material-ui/core/IconButton";
 import Button from "@material-ui/core/Button";
 import Hidden from "@material-ui/core/Hidden";
 import Drawer from "@material-ui/core/Drawer";
+
 // @material-ui/icons
 import Menu from "@material-ui/icons/Menu";
 import Close from "@material-ui/icons/Close";
 // core components
 import styles from "assets/jss/material-kit-pro-react/components/headerStyle.js";
-import Jt from "./Brand";
 
 const useStyles = makeStyles(styles);
 
@@ -66,10 +66,10 @@ export default function Header(props) {
   });
   return (
     <AppBar className={appBarClasses}>
-      <Link to="/" className={classes.jtLogo}>
-        <Jt />
-      </Link>
       <Toolbar className={classes.container}>
+        <Button className={classes.title}>
+          <Link to="/menu">{brand}</Link>
+        </Button>
         <Hidden smDown implementation="css" className={classes.hidden}>
           <div className={classes.collapse}>{links}</div>
         </Hidden>
@@ -78,7 +78,6 @@ export default function Header(props) {
             color="inherit"
             aria-label="open drawer"
             onClick={handleDrawerToggle}
-            className={classes.mlAuto}
           >
             <Menu />
           </IconButton>

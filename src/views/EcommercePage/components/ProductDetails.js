@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { message } from "antd";
+import { graphql } from "react-apollo";
 
 import { makeStyles } from "@material-ui/core/styles";
 import NextArrow from "@material-ui/icons/NavigateNext";
@@ -17,6 +19,9 @@ import Quantity from "./Quantity";
 
 import javascriptStyles from "assets/jss/material-kit-pro-react/views/componentsSections/javascriptStyles.js";
 
+// mutations
+import { addToCartMutation } from "../../../services/mutations";
+
 const useStyles = makeStyles(javascriptStyles);
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -25,11 +30,20 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 Transition.displayName = "Transition";
 
-const ProductDetails = (props) => {
+const ProductDetails = ({ ...props }) => {
   const [classicModal, setClassicModal] = useState(false);
   const [productPrice, setProductPrice] = useState("");
   const [productQuantity, setProductQuantity] = useState(1);
+  const [categoryId, setCategoryId] = useState("");
   const [total, setTotal] = useState("");
+
+  const success = () => {
+    message.success("Successfully added to cart");
+  };
+
+  const error = (errorMessage) => {
+    message.error(errorMessage);
+  };
 
   const getTotal = (quantity) => {
     let productTotal = parseFloat(productPrice) * parseFloat(quantity);
@@ -43,6 +57,61 @@ const ProductDetails = (props) => {
 
   const getQuantity = (quantity) => {
     setProductQuantity(quantity);
+  };
+
+  const getCategory = (category) => {
+    setCategoryId(category);
+  };
+
+  const warning = () => {
+    message.warning("Please log in/register first");
+  };
+
+  const addToCartHandler = (e) => {
+    e.preventDefault();
+
+    if (!localStorage.getItem("isLoggedIn")) {
+      warning();
+      setTimeout(() => {
+        props.history.push("/login");
+      }, 3000);
+    }
+
+    // userId
+    let userId = localStorage.getItem("id");
+    // quantity
+    let quantity = productQuantity;
+    // itemId
+    let productId = props.productId;
+
+    if (categoryId === "") {
+      message.error("Select a Filling");
+      return false;
+    } else {
+      let addItem = {
+        userId: userId,
+        itemId: productId,
+        quantity: parseInt(quantity),
+        categoryId: categoryId,
+      };
+
+      console.log(addItem);
+
+      props
+        .addToCartMutation({
+          variables: addItem,
+        })
+        .then((res) => {
+          if (!res.data.addToCart) {
+            message.error("Something went wrong");
+            return false;
+          }
+          message.success("Successfully added to cart");
+
+          setProductPrice("");
+          setProductQuantity(1);
+        });
+    }
   };
 
   useEffect(() => {
@@ -100,17 +169,13 @@ const ProductDetails = (props) => {
               categories={props.categories}
               name={props.name}
               getPrice={getPrice}
+              getCategoryId={getCategory}
             />
             <Quantity getQuantity={getQuantity} itemTotal={total} />
           </DialogContent>
           <DialogActions className={classes.modalFooter}>
-            <Button link>Nice Button</Button>
-            <Button
-              onClick={() => setClassicModal(false)}
-              color="danger"
-              simple
-            >
-              Close
+            <Button color="warning" onClick={addToCartHandler}>
+              Add To Cart
             </Button>
           </DialogActions>
         </Dialog>
@@ -119,4 +184,6 @@ const ProductDetails = (props) => {
   );
 };
 
-export default ProductDetails;
+export default graphql(addToCartMutation, { name: "addToCartMutation" })(
+  ProductDetails
+);

@@ -45,7 +45,6 @@ const useStyles = makeStyles(styles);
 function EcommercePage(props) {
   // console.log(props.data);
   const [cart, setCart] = useState([]);
-  console.log(cart);
 
   let productData;
 
@@ -53,12 +52,13 @@ function EcommercePage(props) {
     productData = "loading...";
   } else {
     productData = props.data.getProducts.map((product) => {
-      console.log(product);
       return (
         <Product
+          {...props}
           product={product.name}
           categories={product.categories}
           key={product.id}
+          productId={product.id}
         />
       );
     });
@@ -73,6 +73,16 @@ function EcommercePage(props) {
 
   return (
     <>
+      <Header
+        brand="FJ Primeholdings"
+        links={<HeaderLinks dropdownHoverColor="info" />}
+        fixed
+        color="transparent"
+        changeColorOnScroll={{
+          height: 100,
+          color: "info",
+        }}
+      />
       <Parallax image={require("assets/img/qwe.jpg")} filter="dark" small>
         <div className={classes.container}>
           <GridContainer>

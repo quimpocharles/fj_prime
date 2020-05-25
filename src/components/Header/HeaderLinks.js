@@ -34,7 +34,7 @@ import Store from "@material-ui/icons/Store";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import PersonAdd from "@material-ui/icons/PersonAdd";
 import Layers from "@material-ui/icons/Layers";
-import ShoppingBasket from "@material-ui/icons/ShoppingBasket";
+import Cart from "@material-ui/icons/LocalGroceryStoreOutlined";
 import LineStyle from "@material-ui/icons/LineStyle";
 import Error from "@material-ui/icons/Error";
 
@@ -68,6 +68,9 @@ export default function HeaderLinks(props) {
       }
     }
   };
+
+  let navItems;
+
   const scrollGo = (element, to, duration) => {
     var start = element.scrollTop,
       change = to - start,
@@ -88,37 +91,49 @@ export default function HeaderLinks(props) {
 
   const { dropdownHoverColor } = props;
   const classes = useStyles();
-  return (
-    <List
-      className={classes.list + " " + classes.mlAuto + " " + classes.mrAuto}
-    >
-      <ListItem className={classes.listItem}>
-        <Link to="#" className={classes.navLink}>
-          <Button href="#" color="transparent" className={classes.btn}>
-            Home
-          </Button>
-        </Link>
-      </ListItem>
-      <ListItem className={classes.listItem}>
-        <Link to="/menu" className={classes.navLink}>
-          <Button color="transparent" className={classes.btn}>
-            Menu
-          </Button>
-        </Link>
-      </ListItem>
 
+  if (localStorage.getItem("isLoggedIn")) {
+    navItems = (
       <ListItem className={classes.listItem}>
-        <Link to="#" className={classes.navLink}>
-          <Button href="#" color="transparent" className={classes.btn}>
-            Contact Us
-          </Button>
+        <Link to="/logout" className={classes.navLink}>
+          Logout
+        </Link>
+      </ListItem>
+    );
+  } else {
+    navItems = (
+      <>
+        <ListItem className={classes.listItem}>
+          <Link to="/login" className={classes.navLink}>
+            Login
+          </Link>
+        </ListItem>
+
+        <ListItem className={classes.listItem}>
+          <Link to="/register" className={classes.navLink}>
+            Register
+          </Link>
+        </ListItem>
+      </>
+    );
+  }
+  return (
+    <List className={classes.list + " " + classes.mlAuto}>
+      <ListItem className={classes.listItem}>
+        <Link
+          to="/menu"
+          className={classes.navLink + " " + classes.navLinkActive}
+          color="transparent"
+        >
+          <ListIcon /> Gallery
         </Link>
       </ListItem>
       <ListItem className={classes.listItem}>
-        <Button href="#" className={classes.navButton}>
-          Login
-        </Button>
+        <Link to="#pablo" className={classes.navLink}>
+          <Cart /> Cart
+        </Link>
       </ListItem>
+      {navItems}
     </List>
   );
 }

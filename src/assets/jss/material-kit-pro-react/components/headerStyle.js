@@ -14,17 +14,14 @@ import {
   whiteColor,
   grayColor,
   hexToRgb,
-  mlAuto,
 } from "assets/jss/material-kit-pro-react.js";
 
 const headerStyle = (theme) => ({
   appBar: {
-    [theme.breakpoints.up("md")]: {
-      flexFlow: "row wrap",
-    },
     display: "flex",
+    zIndex: 1000,
     border: "0",
-    borderRadius: "3px",
+    borderRadius: "0",
     padding: "0.625rem 0",
     marginBottom: "20px",
     color: grayColor[15],
@@ -41,7 +38,6 @@ const headerStyle = (theme) => ({
     flexFlow: "row nowrap",
     justifyContent: "flex-start",
     position: "relative",
-    flexGrow: "0",
   },
   absolute: {
     position: "absolute",
@@ -56,10 +52,14 @@ const headerStyle = (theme) => ({
     alignItems: "center",
     justifyContent: "space-between",
     display: "flex",
-    flexWrap: "no-wrap",
+    flexWrap: "nowrap",
   },
   title: {
     letterSpacing: "unset",
+    fontFamily: "Roboto",
+    fontWeight: 900,
+    fontStyle: "italic",
+
     "&,& a": {
       ...defaultFont,
       minWidth: "unset",
@@ -189,7 +189,6 @@ const headerStyle = (theme) => ({
     paddingRight: "0px",
     paddingLeft: "0",
     ...transition,
-    backgroundColor: "#FAF2E6",
   },
   hidden: {
     width: "100%",
@@ -213,19 +212,6 @@ const headerStyle = (theme) => ({
     top: "9px",
     zIndex: "1",
   },
-  img: {
-    width: "5rem",
-    height: "5rem",
-    display: "block",
-    margin: "5px auto",
-  },
-
-  jtLogo: {
-    [theme.breakpoints.up("md")]: {
-      flex: "0 0 100%",
-    },
-  },
-  mlAuto,
 });
 
 export default headerStyle;

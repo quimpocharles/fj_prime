@@ -13,12 +13,10 @@ import basicsStyle from "assets/jss/material-kit-pro-react/views/componentsSecti
 
 const useStyles = makeStyles(basicsStyle);
 const Quantity = (props) => {
-  console.log(props);
   const [simpleSelect, setSimpleSelect] = useState("");
   let productTotal;
 
   const handleSimple = (event) => {
-    console.log(event.target.value);
     setSimpleSelect(event.target.value);
 
     props.getQuantity(event.target.value);
@@ -26,12 +24,7 @@ const Quantity = (props) => {
 
   const classes = useStyles();
 
-  // productTotal =
-  //   props.itemTotal !== "" && typeof props.itemTotal !== typeof NaN
-  //     ? ` Total: ₱ ${props.itemTotal}`
-  //     : "";
-
-  if (props.itemTotal == "") {
+  if (props.itemTotal === "") {
     productTotal = "";
   } else {
     if (!isNaN(props.itemTotal)) {
@@ -40,8 +33,6 @@ const Quantity = (props) => {
       productTotal = "";
     }
   }
-
-  console.log(typeof props.itemTotal);
 
   return (
     <GridContainer>

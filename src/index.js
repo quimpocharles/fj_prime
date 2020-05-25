@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import Loadable from "react-loadable";
 import { createBrowserHistory } from "history";
-import { Router, Route, Switch } from "react-router";
+import { Router, Route, Switch, Redirect } from "react-router";
 import { ApolloProvider } from "react-apollo";
 import ApolloClient from "apollo-boost";
 
@@ -34,6 +34,11 @@ const Loading = () => (
   </div>
 );
 
+const Logout = () => {
+  localStorage.clear();
+  return <Redirect to="/login" />;
+};
+
 var hist = createBrowserHistory();
 
 const client = new ApolloClient({
@@ -53,9 +58,10 @@ ReactDOM.render(
 
         <Route path="/components" component={ComponentsPage} />
         <Route path="/contact-us" component={ContactUsPage} />
-        <Route exact path="/" component={EcommercePage} />
+        <Route exact path="/menu" component={EcommercePage} />
         <Route path="/landing-page" component={LandingPage} />
         <Route exact path="/login" component={LoginPage} />
+        <Route exact path="/logout" component={Logout} />
         <Route path="/pricing" component={PricingPage} />
         <Route path="/profile-page" component={ProfilePage} />
         <Route path="/product-page" component={ProductPage} />

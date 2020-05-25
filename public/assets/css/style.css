@@ -5,6 +5,12 @@ body {
 	background-color: #e3dee1;
 }
 
+/*.ant-message,
+.ant-message-notice,
+.ant-message-notice-content {
+	z-index: 100 !important;
+}*/
+
 .sk-folding-cube {
 	margin: 20px auto;
 	width: 40px;

@@ -1,6 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import Button from "components/CustomButtons/Button.js";
 
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
@@ -21,11 +19,8 @@ import ProductModal from "./ProductDetails";
 import styles from "assets/jss/material-kit-pro-react/views/componentsSections/sectionCards.js";
 const useStyles = makeStyles(styles);
 const Product = (props) => {
-  console.log(props);
-
   const productClickHandler = (e) => {
     // e.preventDefault();
-    // console.log(e.currentTarget.value);
   };
 
   const classes = useStyles();
@@ -52,7 +47,12 @@ const Product = (props) => {
           <h6 className={classes.cardProduct}>{props.product}</h6>
 
           <h4 className={classes.cardTitle}>
-            <ProductModal categories={props.categories} name={props.product} />
+            <ProductModal
+              {...props}
+              categories={props.categories}
+              name={props.product}
+              productId={props.productId}
+            />
           </h4>
         </CardBody>
       </Card>

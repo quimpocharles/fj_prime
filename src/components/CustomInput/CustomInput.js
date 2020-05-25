@@ -71,7 +71,7 @@ export default function CustomInput(props) {
     }
 
     if (e.target.getAttribute("name") === "lastName") {
-      setFirstname(e.target.value);
+      setLastName(e.target.value);
     }
 
     if (e.target.getAttribute("name") === "email") {
