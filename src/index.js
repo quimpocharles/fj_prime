@@ -69,7 +69,7 @@ ReactDOM.render(
         <Route path="/shopping-cart-page" component={ShoppingCartPage} />
         <Route path="/register" component={SignupPage} />
         <Route path="/error-page" component={ErrorPage} />
-        <Route path="/present" component={PresentationPage} />
+        <Route exact path="/" component={PresentationPage} />
       </Switch>
     </Router>
   </ApolloProvider>,

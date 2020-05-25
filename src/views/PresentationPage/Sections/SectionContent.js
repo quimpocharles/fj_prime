@@ -1,5 +1,6 @@
 import React from "react";
 // core components
+import classNames from "classnames";
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
 // @material-ui/core components
@@ -10,32 +11,39 @@ import "animate.css/animate.min.css";
 
 import contentStyle from "assets/jss/material-kit-pro-react/views/presentationSections/contentStyle.js";
 // images
-import presentationiPad from "assets/img/assets-for-demo/presentationViewSectionComponent/presentation-ipad.jpg";
-import presentationiPadComments from "assets/img/assets-for-demo/presentationViewSectionComponent/ipad-comments.jpg";
-import presentationiPadTable from "assets/img/assets-for-demo/presentationViewSectionComponent/ipad-table.jpg";
+import presentationiPad from "assets/img/assets-for-demo/presentationViewSectionComponent/presentation-ipad.png";
+import presentationiPadComments from "assets/img/boba_girl.jpg";
+import presentationiPadTable from "assets/img/bpapa.jpg";
 
 const useStyles = makeStyles(contentStyle);
 
 export default function SectionContent() {
   const classes = useStyles();
   return (
-    <div className={classes.section}>
+    <div className={classNames(classes.section, classes.sectionDark)}>
       <div className={classes.container}>
         <GridContainer justify="center">
           <GridItem md={4}>
             <div className={classes.sectionDescription}>
-              <h3 className={classes.title}>Content Areas</h3>
-              <h6 className={classes.description}>
-                For Areas that Need More Space
-              </h6>
-              <h5 className={classes.description}>
-                If you need elements such as tables, comments, description
-                areas, tabs and many others, we{"'"}ve got you covered. We took
-                into consideration multiple use cases and came up with some
-                specific elements that you will love to use. They{"'"}re
-                beautiful and easy to use for the end user navigating your
-                website.{" "}
-              </h5>
+              <h3 className={classes.title}>About Us</h3>
+              <h6 className={classes.description}>Beard Papa</h6>
+              <p className={classes.description}>
+                In 1999, a small bakery opened in the small town of Osaka,
+                Japan. People in the town couldn’t resist the aroma from the
+                bakery, or the kind face of the owner, Yuji Hirota. His fluffy
+                white beard was so renowned that he became known as “Beard Papa”
+                to all of his regular customers.
+              </p>
+              <p className={classes.description}>
+                He perfected the art of his pastries by making a double layered
+                puff–choux on the inside, and pie crust on the outside. Then, he
+                proceeded to make the perfect filling, made with a mixture of
+                whipped and vanilla custard cream. Beard Papa’s stores still use
+                the recipe to this day, along with a ton of new recipes that are
+                bound to satisfy any palette. Whether you are in Japan,
+                Australia, Canada, or America you will always be able to find
+                your own Beard Papa’s.
+              </p>
             </div>
           </GridItem>
           <GridItem md={7} className={classes.mlAuto}>

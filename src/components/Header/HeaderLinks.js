@@ -10,6 +10,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import Icon from "@material-ui/core/Icon";
+import Home from "@material-ui/icons/HomeOutlined";
+import VerifyUser from "@material-ui/icons/VerifiedUserOutlined";
+import UserRegister from "@material-ui/icons/AccountCircleOutlined";
 
 // @material-ui/icons
 import Apps from "@material-ui/icons/Apps";
@@ -105,12 +108,13 @@ export default function HeaderLinks(props) {
       <>
         <ListItem className={classes.listItem}>
           <Link to="/login" className={classes.navLink}>
-            Login
+            <VerifyUser /> Login
           </Link>
         </ListItem>
 
         <ListItem className={classes.listItem}>
           <Link to="/register" className={classes.navLink}>
+            <UserRegister />
             Register
           </Link>
         </ListItem>
@@ -120,11 +124,10 @@ export default function HeaderLinks(props) {
   return (
     <List className={classes.list + " " + classes.mlAuto}>
       <ListItem className={classes.listItem}>
-        <Link
-          to="/menu"
-          className={classes.navLink + " " + classes.navLinkActive}
-          color="transparent"
-        >
+        <Link to="/" className={classes.navLink} color="transparent">
+          <Home /> Home
+        </Link>
+        <Link to="/menu" className={classes.navLink} color="transparent">
           <ListIcon /> Gallery
         </Link>
       </ListItem>

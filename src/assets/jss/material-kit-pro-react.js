@@ -375,7 +375,7 @@ const sectionDark = {
 };
 
 const sectionDescription = {
-  marginTop: "130px",
+  // marginTop: "130px",
 };
 
 const description = {
