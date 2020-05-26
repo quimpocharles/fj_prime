@@ -129,16 +129,18 @@ function EcommercePage(props) {
         theme="white"
         content={
           <div className={classes.rightLinks}>
-            &copy; {1900 + new Date().getYear()} , Let{"'"}s make websites great
-            again.{" "}
-            <span className="cqBrand">
-              <a
-                href="https://www.linkedin.com/in/charlesquimpo"
-                target="_blank"
-              >
-                <em>CQ Studios</em>
-              </a>
-            </span>
+            <p className={classes.cqStudios}>
+              &copy; {1900 + new Date().getYear()} , Let{"'"}s make websites
+              great again.{" "}
+              <span className="cqBrand">
+                <a
+                  href="https://www.linkedin.com/in/charlesquimpo"
+                  target="_blank"
+                >
+                  <em>CQ Studios</em>
+                </a>
+              </span>
+            </p>
           </div>
         }
       />

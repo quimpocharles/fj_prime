@@ -151,6 +151,9 @@ const footerStyle = {
     ...btnLink,
     color: instagramColor,
   },
+  cqStudtios: {
+    fontSize: "0.5rem",
+  },
   footerBrand: {
     height: "50px",
     padding: "15px 15px",
