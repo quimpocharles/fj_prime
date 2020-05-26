@@ -42,7 +42,7 @@ const Logout = () => {
 var hist = createBrowserHistory();
 
 const client = new ApolloClient({
-  uri: "http://localhost:4000/graphql",
+  uri: "https://fj-server.now.sh/graphql",
 });
 
 const EcommercePage = Loadable({
