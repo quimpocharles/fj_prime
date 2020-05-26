@@ -95,7 +95,7 @@ const ProductDetails = ({ ...props }) => {
         categoryId: categoryId,
       };
 
-      console.log(addItem);
+      // console.log(addItem);
 
       props
         .addToCartMutation({
