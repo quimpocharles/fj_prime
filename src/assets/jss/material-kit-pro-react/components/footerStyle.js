@@ -22,6 +22,7 @@ const footerStyle = {
   },
   rightLinks: {
     float: "right!important",
+    fontSize: "0.5em",
     "& ul": {
       marginBottom: 0,
       marginTop: 10,
