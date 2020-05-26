@@ -43,6 +43,9 @@ var hist = createBrowserHistory();
 
 const client = new ApolloClient({
   uri: "https://fj-server.now.sh/graphql",
+  fetchOptions: {
+    mode: "no-cors",
+  },
 });
 
 const EcommercePage = Loadable({
