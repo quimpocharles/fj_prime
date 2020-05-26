@@ -12,6 +12,7 @@ import {
   hexToRgb,
 } from "assets/jss/material-kit-pro-react.js";
 import imagesStyles from "assets/jss/material-kit-pro-react/imagesStyles.js";
+import footerStyle from "assets/jss/material-kit-pro-react/views/componentsSections/footerStyle.js";
 
 const styles = {
   ...imagesStyles,
@@ -29,6 +30,22 @@ const styles = {
     paddingTop: "15px",
     paddingBottom: "15px",
     zIndex: "2",
+  },
+  rightLinks: {
+    float: "right!important",
+    "& ul": {
+      marginBottom: 0,
+      marginTop: 10,
+      padding: 0,
+      listStyle: "none",
+      height: 38,
+      "& li": {
+        display: "inline-block",
+      },
+    },
+    "& i": {
+      fontSize: "20px",
+    },
   },
   brand: {
     "& h1, & h4": {

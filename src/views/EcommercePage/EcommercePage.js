@@ -19,6 +19,7 @@ import CustomInput from "components/CustomInput/CustomInput.js";
 import Footer from "components/Footer/Footer.js";
 // sections for this page
 import HeaderLinks from "components/Header/HeaderLinks.js";
+import SectionLatestOffers from "./Sections/SectionLatestOffers";
 
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
@@ -108,7 +109,6 @@ function EcommercePage(props) {
           </GridContainer>
         </div>
       </Parallax>
-
       <div
         className={classNames(classes.main, classes.mainRaised)}
         style={{ backgroundImage: `url(${mainBg})` }}
@@ -123,39 +123,25 @@ function EcommercePage(props) {
           </div>
         </div>
       </div>
-      <div
-        className={classNames(
-          classes.subscribeLine,
-          classes.subscribeLineImage
-        )}
-        style={{
-          backgroundImage: `url(${ecommerceHeader})`,
-          backgroundPosition: "center",
-        }}
-      >
-        <div className={classes.container}>
-          <GridContainer>
-            <GridItem
-              xs={12}
-              sm={6}
-              md={6}
-              className={classNames(classes.mlAuto, classes.mrAuto)}
-            >
-              <div className={classes.textCenter}>
-                <h3 className={classes.title}>
-                  FJ Primeholdings Online Delivery
-                </h3>
-                <p className={classes.description}>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                  laboris nisi ut aliquip ex ea commodo consequat.
-                </p>
-              </div>
-            </GridItem>
-          </GridContainer>
-        </div>
-      </div>
+      <SectionLatestOffers />
+
+      <Footer
+        theme="white"
+        content={
+          <div className={classes.rightLinks}>
+            &copy; {1900 + new Date().getYear()} , Let{"'"}s make websites great
+            again.{" "}
+            <span className="cqBrand">
+              <a
+                href="https://www.linkedin.com/in/charlesquimpo"
+                target="_blank"
+              >
+                <em>CQ Studios</em>
+              </a>
+            </span>
+          </div>
+        }
+      />
     </>
   );
 }
