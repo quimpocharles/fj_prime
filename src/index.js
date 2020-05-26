@@ -42,7 +42,7 @@ const Logout = () => {
 var hist = createBrowserHistory();
 
 const client = new ApolloClient({
-  uri: "https://fj-server.now.sh/graphql",
+  uri: "https://fjserver.herokuapp.com/graphql",
   fetchOptions: {
     mode: "no-cors",
   },
