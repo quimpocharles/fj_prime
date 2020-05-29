@@ -67,9 +67,10 @@ export default function Header(props) {
   return (
     <AppBar className={appBarClasses}>
       <Toolbar className={classes.container}>
-        <Button className={classes.title}>
-          <Link to="/menu">{brand}</Link>
-        </Button>
+        <Link to="/menu" className={classes.title}>
+          <img src={"assets/images/fj_logo.png"} className={classes.img} />
+        </Link>
+
         <Hidden smDown implementation="css" className={classes.hidden}>
           <div className={classes.collapse}>{links}</div>
         </Hidden>

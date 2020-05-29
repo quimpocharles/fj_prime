@@ -56,6 +56,7 @@ const headerStyle = (theme) => ({
   },
   title: {
     letterSpacing: "unset",
+    width: "30%",
     fontFamily: "Roboto",
     fontWeight: 900,
     fontStyle: "italic",
@@ -211,6 +212,10 @@ const headerStyle = (theme) => ({
     right: "8px",
     top: "9px",
     zIndex: "1",
+  },
+  img: {
+    width: "100%",
+    display: "inline-block",
   },
 });
 
