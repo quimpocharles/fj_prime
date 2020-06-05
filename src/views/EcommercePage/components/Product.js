@@ -1,62 +1,88 @@
-import React from "react";
+import React, { useState } from "react";
 
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 
+import Layers from "@material-ui/icons/Layers";
+import { Link } from "react-router-dom";
+
 // core components
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
+import InfoArea from "components/InfoArea/InfoArea.js";
 import Card from "components/Card/Card.js";
-import CardHeader from "components/Card/CardHeader.js";
-import CardMedia from "@material-ui/core/CardMedia";
-import CardBody from "components/Card/CardBody.js";
-import CardFooter from "components/Card/CardFooter.js";
 import CardAvatar from "components/Card/CardAvatar.js";
-import color1 from "assets/img/bpapa.png";
+import CardBody from "components/Card/CardBody.js";
 
-import ProductModal from "./ProductDetails";
+import featuresStyle from "assets/jss/material-kit-pro-react/views/sectionsSections/featuresStyle.js";
 
-import styles from "assets/jss/material-kit-pro-react/views/componentsSections/sectionCards.js";
-const useStyles = makeStyles(styles);
-const Product = (props) => {
-  const productClickHandler = (e) => {
-    // e.preventDefault();
+const useStyles = makeStyles(featuresStyle);
+
+const Product = ({ ...rest }) => {
+  const classes = useStyles();
+  const [image, setImage] = useState(rest.img);
+  const [desc, setDesc] = useState(rest.category);
+  let colorCircles;
+
+  let productData;
+
+  const setDetailsHandler = (e) => {
+    e.preventDefault();
+    console.log(e.target);
   };
 
-  const classes = useStyles();
-  return (
-    <GridItem xs={12} sm={4} md={4}>
-      <Card blog>
-        <CardHeader image>
-          <a href="#pablo" onClick={(e) => e.preventDefault()}>
-            <img
-              src={color1}
-              alt="shell choices"
-              style={{ backgroundColor: "#fff203" }}
-            />
-          </a>
-          <div
-            className={classes.coloredShadow}
-            style={{
-              backgroundImage: `url(${color1})`,
-              opacity: "1",
-            }}
-          />
-        </CardHeader>
-        <CardBody>
-          <h6 className={classes.cardProduct}>{props.product}</h6>
+  if (rest.productsArray === []) {
+    productData = "loading...";
+  } else {
+    productData = rest.productsArray
+      .sort((a, b) => a.name.localeCompare(b.name))
+      .map((product) => {
+        console.log(product);
 
-          <h4 className={classes.cardTitle}>
-            <ProductModal
-              {...props}
-              categories={props.categories}
-              name={props.product}
-              productId={props.productId}
-            />
-          </h4>
-        </CardBody>
-      </Card>
-    </GridItem>
+        return (
+          <GridItem xs={12} md={4}>
+            <Card profile plain onClick={setDetailsHandler}>
+              <CardAvatar
+                profile
+                plain
+                style={{
+                  backgroundImage: `url('${product.image_location}')`,
+                  backgroundSize: "contain",
+                  backgroundPosition: "center",
+                  backgroundRepeat: "no-repeat",
+                  backgroundColor: "#e6c286",
+                  height: "75px",
+                  width: "75px",
+                }}
+              ></CardAvatar>
+              <CardBody plain>
+                <h4>{product.name.toUpperCase()}</h4>
+              </CardBody>
+            </Card>
+          </GridItem>
+        );
+      });
+  }
+
+  return (
+    <div className="cd-section" {...rest}>
+      {/* Feature 3 START */}
+      <div className={classes.features3}>
+        <GridContainer alignItems="center">
+          <GridItem xs={12} sm={6} md={6}>
+            <div className={classes.phoneContainer}>
+              <img src={image} />
+              <h6 className={classes.description}>{desc}</h6>
+            </div>
+          </GridItem>
+          <GridItem xs={12} sm={6} md={6}>
+            <h2 className={classes.title}>Select Shell</h2>
+            <GridContainer>{productData}</GridContainer>
+          </GridItem>
+        </GridContainer>
+      </div>
+      {/* Feature 3 END */}
+    </div>
   );
 };
 

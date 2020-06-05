@@ -3,8 +3,9 @@ import { gql } from "apollo-boost";
 const getCategoriesQuery = gql`
   {
     getCategories {
-      name
       id
+      name
+      image_location
     }
   }
 `;
@@ -26,15 +27,32 @@ const getCategoryQuery = gql`
 const getProductsQuery = gql`
   {
     getProducts {
-      id
       name
-      categories {
-        id
-        name
-        price
+      categoryId
+      price
+      image_location
+      shop_name
+    }
+  }
+`;
+
+const getCartQuery = gql`
+  query($id: String!) {
+    getMember(id: $id) {
+      first_name
+      cart {
+        quantity
+        item {
+          name
+        }
+        category {
+          price
+          id
+          name
+        }
       }
     }
   }
 `;
 
-export { getCategoriesQuery, getCategoryQuery, getProductsQuery };
+export { getCategoriesQuery, getCategoryQuery, getProductsQuery, getCartQuery };

@@ -132,7 +132,7 @@ export default function HeaderLinks(props) {
         </Link>
       </ListItem>
       <ListItem className={classes.listItem}>
-        <Link to="#pablo" className={classes.navLink}>
+        <Link to="/cart" className={classes.navLink}>
           <Cart /> Cart
         </Link>
       </ListItem>

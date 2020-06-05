@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { graphql } from "react-apollo";
+
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import Select from "@material-ui/core/Select";
@@ -9,9 +11,13 @@ import FormControl from "@material-ui/core/FormControl";
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
 
+// relative imports
+import { getCategoriesQuery } from "services/queries";
+
 import basicsStyle from "assets/jss/material-kit-pro-react/views/componentsSections/basicsStyle.js";
 
 const useStyles = makeStyles(basicsStyle);
+
 const Flavors = (props) => {
   const [simpleSelect, setSimpleSelect] = useState("");
   const [price, setPrice] = useState("");
@@ -22,25 +28,31 @@ const Flavors = (props) => {
     props.getCategoryId(event.target.value);
   };
 
+  console.log(props);
+
   let categoryOptions;
 
   const classes = useStyles();
 
-  categoryOptions = props.categories.map((category) => {
-    return (
-      <MenuItem
-        classes={{
-          root: classes.selectMenuItem,
-          selected: classes.selectMenuItemSelected,
-        }}
-        data-price={category.price}
-        value={category.id}
-        key={category.id}
-      >
-        {category.name.toUpperCase()}
-      </MenuItem>
-    );
-  });
+  if (props.data.loading) {
+    categoryOptions = "loading...";
+  } else {
+    categoryOptions = props.data.getCategories.map((category) => {
+      return (
+        <MenuItem
+          classes={{
+            root: classes.selectMenuItem,
+            selected: classes.selectMenuItemSelected,
+          }}
+          data-price={5}
+          value={category.id}
+          key={category.id}
+        >
+          {category.name.toUpperCase()}
+        </MenuItem>
+      );
+    });
+  }
 
   useEffect(() => {
     // console.log(simpleSelect);
@@ -90,4 +102,4 @@ const Flavors = (props) => {
   );
 };
 
-export default Flavors;
+export default graphql(getCategoriesQuery)(Flavors);

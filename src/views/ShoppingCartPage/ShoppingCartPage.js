@@ -1,10 +1,13 @@
 /*eslint-disable*/
 import React, { useState, useEffect } from "react";
+import { graphql } from "react-apollo";
+
 // nodejs library that concatenates classes
 import classNames from "classnames";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import Tooltip from "@material-ui/core/Tooltip";
+
 // @material-ui/icons
 
 // core components
@@ -20,21 +23,24 @@ import CardBody from "components/Card/CardBody.js";
 import List from "@material-ui/core/List";
 
 import MenuItem from "./components/MenuItem";
-import CartBar from "./components/CartBar";
 
 import shoppingCartStyle from "assets/jss/material-kit-pro-react/views/shoppingCartStyle.js";
 
 import product2 from "assets/img/product2.jpg";
 import product3 from "assets/img/product3.jpg";
 
+import { getCartQuery } from "./../../services/queries.js";
+
 const useStyles = makeStyles(shoppingCartStyle);
 
-export default function ShoppingCartPage() {
+function ShoppingCartPage(props) {
   const [total, setTotal] = useState(0);
   const [subTotal, setSubTotal] = useState(0);
   const [firstLoad, setFirstLoad] = useState(true);
 
-  React.useEffect(() => {
+  let cartData;
+
+  useEffect(() => {
     if (firstLoad) {
       window.scrollTo(0, 0);
       document.body.scrollTop = 0;
@@ -45,25 +51,45 @@ export default function ShoppingCartPage() {
     setSubTotal(parseInt(subTotal) + parseInt(sub));
     setFirstLoad(false);
   };
-
-  useEffect(() => {
-    console.log(subTotal);
-  });
-
   const classes = useStyles();
+
+  if (props.data.loading) {
+    cartData = <p>Fetching cart...</p>;
+  } else {
+    props.data.getMember.cart.map((cartItem) => {
+      console.log(cartItem);
+      cartData = cartItem.category.map((category) => {
+        if (category === null) {
+        } else {
+          console.log(category);
+          return (
+            <MenuItem
+              key={category.id}
+              itemName={cartItem.item.name}
+              categoryName={category.name}
+              price={category.price}
+              getSub={cartItem.quantity * category.price}
+            />
+          );
+        }
+      });
+    });
+  }
+
   return (
-    <div>
+    <>
       <Header
-        brand="Material Kit PRO React"
+        brand="FJ Primeholdings"
         links={<HeaderLinks dropdownHoverColor="info" />}
         fixed
         color="transparent"
         changeColorOnScroll={{
           height: 100,
-          color: "danger",
+          color: "info",
         }}
       />
-      <Parallax image={require("assets/img/jtsManok.jpg")} filter="dark">
+
+      <Parallax image={require("assets/img/qwe.jpg")} filter="dark" small>
         <div className={classes.container}>
           <GridContainer>
             <GridItem
@@ -76,42 +102,49 @@ export default function ShoppingCartPage() {
               )}
             >
               <div className={classes.brand}>
-                <h1 className={classes.title}>Select Your Order</h1>
-                <h4>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                  laboris nisi ut aliquip ex ea commodo consequat.
-                </h4>
+                <h1 className={classes.title}> Cart Page </h1>
               </div>
             </GridItem>
           </GridContainer>
         </div>
       </Parallax>
+
       <div className={classNames(classes.main, classes.mainRaised)}>
         <div className={classes.container}>
           <GridContainer justify="center" alignItems="center">
-            <GridItem xs={12} md={8}>
-              <List>
-                <MenuItem itemName="Paa" price={148} getSub={getSubTotal} />
-                <MenuItem itemName="Pecho" price={135} getSub={getSubTotal} />
-                <MenuItem itemName="Pakpak" price={110} getSub={getSubTotal} />
-                <MenuItem
-                  itemName="Chicken Sisig"
-                  price={200}
-                  getSub={getSubTotal}
-                />
-                <MenuItem
-                  itemName="Chicken Sisig w/ Egg"
-                  price={220}
-                  getSub={getSubTotal}
-                />
-              </List>
+            <GridItem xs={12} md={12}>
+              <List>{cartData}</List>
             </GridItem>
           </GridContainer>
         </div>
       </div>
-      <CartBar />
-    </div>
+      <Footer
+        theme="white"
+        content={
+          <div className={classes.rightLinks}>
+            <p className={classes.cqStudios}>
+              &copy; {1900 + new Date().getYear()} , Let{"'"}s make websites
+              great again.{" "}
+              <span className="cqBrand">
+                <a
+                  href="https://www.linkedin.com/in/charlesquimpo"
+                  target="_blank"
+                >
+                  <em>CQ Studios</em>
+                </a>
+              </span>
+            </p>
+          </div>
+        }
+      />
+    </>
   );
 }
+
+export default graphql(getCartQuery, {
+  options: (props) => {
+    return {
+      variables: { id: localStorage.getItem("id") },
+    };
+  },
+})(ShoppingCartPage);

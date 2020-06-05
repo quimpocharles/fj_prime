@@ -20,6 +20,7 @@ import Footer from "components/Footer/Footer.js";
 // sections for this page
 import HeaderLinks from "components/Header/HeaderLinks.js";
 import SectionLatestOffers from "./Sections/SectionLatestOffers";
+import SectionProducts from "./Sections/SectionProducts";
 
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
@@ -32,7 +33,6 @@ import {
   getCategoryQuery,
   getProductsQuery,
 } from "services/queries";
-import ecommerceHeader from "assets/img/qwe.jpg";
 import mainBg from "assets/img/bg01.png";
 
 import styles from "assets/jss/material-kit-pro-react/views/ecommerceStyle.js";
@@ -44,7 +44,7 @@ import Product from "./components/Product";
 const useStyles = makeStyles(styles);
 
 function EcommercePage(props) {
-  // console.log(props.data);
+  console.log(props.data);
   const [cart, setCart] = useState([]);
 
   let productData;
@@ -52,17 +52,7 @@ function EcommercePage(props) {
   if (props.data.loading) {
     productData = "loading...";
   } else {
-    productData = props.data.getProducts.map((product) => {
-      return (
-        <Product
-          {...props}
-          product={product.name}
-          categories={product.categories}
-          key={product.id}
-          productId={product.id}
-        />
-      );
-    });
+    productData = props.data.getProducts;
   }
 
   const classes = useStyles();
@@ -99,11 +89,9 @@ function EcommercePage(props) {
               <div className={classes.brand}>
                 <h1 className={classes.title}>Select Your Order</h1>
                 <h4>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                  laboris nisi ut aliquip ex ea commodo consequat.
+                  One step closer to enjoying your favorite cream puffs at home.
                 </h4>
+                <h4>Select a cream puff flavor then select the shell.</h4>
               </div>
             </GridItem>
           </GridContainer>
@@ -115,10 +103,9 @@ function EcommercePage(props) {
       >
         <div className={classes.section}>
           <div className={classes.container}>
-            <h2 className={classes.title} style={{ textAlign: "center" }}>
-              Pick A Shell
-            </h2>
-            <GridContainer justify="center">{productData}</GridContainer>
+            <GridContainer justify="center">
+              <SectionProducts products={productData} />
+            </GridContainer>
             <br />
           </div>
         </div>

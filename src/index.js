@@ -22,6 +22,7 @@ import SectionsPage from "views/SectionsPage/SectionsPage.js";
 import ShoppingCartPage from "views/ShoppingCartPage/ShoppingCartPage.js";
 import SignupPage from "views/SignupPage/SignupPage.js";
 import ErrorPage from "views/ErrorPage/ErrorPage.js";
+import CheckoutPage from "views/CheckoutPage/Checkout.js";
 
 import "antd/dist/antd.css";
 
@@ -67,10 +68,11 @@ ReactDOM.render(
         <Route path="/profile-page" component={ProfilePage} />
         <Route path="/product-page" component={ProductPage} />
         <Route path="/sections" component={SectionsPage} />
-        <Route path="/shopping-cart-page" component={ShoppingCartPage} />
+        <Route path="/cart" component={ShoppingCartPage} />
         <Route path="/register" component={SignupPage} />
         <Route path="/error-page" component={ErrorPage} />
         <Route exact path="/" component={PresentationPage} />
+        <Route exact path="/checkout" component={CheckoutPage} />
       </Switch>
     </Router>
   </ApolloProvider>,
