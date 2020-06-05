@@ -40,7 +40,7 @@ const Product = ({ ...rest }) => {
         console.log(product);
 
         return (
-          <GridItem xs={12} md={4}>
+          <GridItem xs={6} md={4}>
             <Card profile plain onClick={setDetailsHandler}>
               <CardAvatar
                 profile
