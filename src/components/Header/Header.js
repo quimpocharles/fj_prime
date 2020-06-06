@@ -13,6 +13,8 @@ import Button from "@material-ui/core/Button";
 import Hidden from "@material-ui/core/Hidden";
 import Drawer from "@material-ui/core/Drawer";
 
+import fjLogo from "assets/img/fj_logo.png";
+
 // @material-ui/icons
 import Menu from "@material-ui/icons/Menu";
 import Close from "@material-ui/icons/Close";
@@ -68,7 +70,7 @@ export default function Header(props) {
     <AppBar className={appBarClasses}>
       <Toolbar className={classes.container}>
         <Link to="/menu" className={classes.title}>
-          <img src={"assets/img/fj_logo.png"} className={classes.img} />
+          <img src={fjLogo} className={classes.img} />
         </Link>
 
         <Hidden smDown implementation="css" className={classes.hidden}>

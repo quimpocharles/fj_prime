@@ -57,11 +57,10 @@ ReactDOM.render(
     <Router history={hist}>
       <Switch>
         <Route path="/about-us" component={AboutUsPage} />
-
         <Route path="/components" component={ComponentsPage} />
         <Route path="/contact-us" component={ContactUsPage} />
         <Route exact path="/menu" component={EcommercePage} />
-        <Route exact path="/menu/:id" component={EcommercePage} />
+        <Route exact path="/menu/:id" component={ProductPage} />
         <Route path="/landing-page" component={LandingPage} />
         <Route exact path="/login" component={LoginPage} />
         <Route exact path="/logout" component={Logout} />

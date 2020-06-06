@@ -34,25 +34,39 @@ const Flavors = (props) => {
 
   const classes = useStyles();
 
-  if (props.data.loading) {
-    categoryOptions = "loading...";
-  } else {
-    categoryOptions = props.data.getCategories.map((category) => {
-      return (
-        <MenuItem
-          classes={{
-            root: classes.selectMenuItem,
-            selected: classes.selectMenuItemSelected,
-          }}
-          data-price={5}
-          value={category.id}
-          key={category.id}
-        >
-          {category.name.toUpperCase()}
-        </MenuItem>
-      );
-    });
-  }
+  // if (props.data.loading) {
+  //   categoryOptions = "loading...";
+  // } else {
+  //   categoryOptions = props.data.getCategories.map((category) => {
+  //     return (
+  //       <MenuItem
+  //         classes={{
+  //           root: classes.selectMenuItem,
+  //           selected: classes.selectMenuItemSelected,
+  //         }}
+  //         data-price={5}
+  //         value={category.id}
+  //         key={category.id}
+  //       >
+  //         {category.name.toUpperCase()}
+  //       </MenuItem>
+  //     );
+  //   });
+  // }
+
+  categoryOptions = (
+    <MenuItem
+      classes={{
+        root: classes.selectMenuItem,
+        selected: classes.selectMenuItemSelected,
+      }}
+      data-price={5}
+      value="hello"
+      key="hello1"
+    >
+      name
+    </MenuItem>
+  );
 
   useEffect(() => {
     // console.log(simpleSelect);

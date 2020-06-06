@@ -37,7 +37,7 @@ const Product = ({ ...rest }) => {
         return (
           <GridItem xs={6} md={4}>
             <Link to={`/menu/${product.id}`}>
-              <Card profile plain>
+              <Card profile plain value={product.id}>
                 <CardAvatar
                   profile
                   plain

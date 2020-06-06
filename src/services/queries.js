@@ -56,4 +56,22 @@ const getCartQuery = gql`
   }
 `;
 
-export { getCategoriesQuery, getCategoryQuery, getProductsQuery, getCartQuery };
+const getProductQuery = gql`
+  query($id: String!) {
+    getProduct(id: $id) {
+      id
+      name
+      price
+      categoryId
+      image_location
+    }
+  }
+`;
+
+export {
+  getCategoriesQuery,
+  getCategoryQuery,
+  getProductsQuery,
+  getCartQuery,
+  getProductQuery,
+};

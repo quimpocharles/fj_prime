@@ -82,18 +82,18 @@ const customSelectStyle = {
     color: grayColor[8],
     paddingRight: "30px",
     "&:hover": {
-      backgroundColor: warningColor[0],
+      backgroundColor: infoColor[0],
       color: whiteColor,
       ...warningBoxShadow,
     },
   },
   selectMenuItemSelected: {
-    backgroundColor: warningColor[0] + "!important",
+    backgroundColor: infoColor[0] + "!important",
     color: whiteColor,
   },
   selectMenuItemSelectedMultiple: {
     "&:hover": {
-      backgroundColor: warningColor[0] + "!important",
+      backgroundColor: infoColor[0] + "!important",
       color: whiteColor,
       ...warningBoxShadow,
       "&:after": {
