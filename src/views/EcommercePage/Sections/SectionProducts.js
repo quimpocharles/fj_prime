@@ -80,10 +80,10 @@ export default function SectionLatestOffers(props) {
                   />
                 ),
               },
-              // {
-              //   tabButton: "Others",
-              //   tabContent: "test",
-              // },
+              {
+                tabButton: "Others",
+                tabContent: "",
+              },
             ]}
           />
         </GridItem>

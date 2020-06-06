@@ -26,11 +26,6 @@ const Product = ({ ...rest }) => {
 
   let productData;
 
-  const setDetailsHandler = (e) => {
-    e.preventDefault();
-    console.log(e.target);
-  };
-
   if (rest.productsArray === []) {
     productData = "loading...";
   } else {
@@ -41,24 +36,26 @@ const Product = ({ ...rest }) => {
 
         return (
           <GridItem xs={6} md={4}>
-            <Card profile plain onClick={setDetailsHandler}>
-              <CardAvatar
-                profile
-                plain
-                style={{
-                  backgroundImage: `url('${product.image_location}')`,
-                  backgroundSize: "contain",
-                  backgroundPosition: "center",
-                  backgroundRepeat: "no-repeat",
-                  backgroundColor: "#e6c286",
-                  height: "75px",
-                  width: "75px",
-                }}
-              ></CardAvatar>
-              <CardBody plain>
-                <h4>{product.name.toUpperCase()}</h4>
-              </CardBody>
-            </Card>
+            <Link to={`/menu/${product.id}`}>
+              <Card profile plain>
+                <CardAvatar
+                  profile
+                  plain
+                  style={{
+                    backgroundImage: `url('${product.image_location}')`,
+                    backgroundSize: "contain",
+                    backgroundPosition: "center",
+                    backgroundRepeat: "no-repeat",
+                    backgroundColor: "#e6c286",
+                    height: "75px",
+                    width: "75px",
+                  }}
+                ></CardAvatar>
+                <CardBody plain>
+                  <h4>{product.name.toUpperCase()}</h4>
+                </CardBody>
+              </Card>
+            </Link>
           </GridItem>
         );
       });

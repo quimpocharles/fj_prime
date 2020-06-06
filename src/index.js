@@ -43,8 +43,8 @@ const Logout = () => {
 var hist = createBrowserHistory();
 
 const client = new ApolloClient({
-  uri: "https://fjserver.herokuapp.com/graphql",
-  // uri: "http://localhost:4000/graphql",
+  // uri: "https://fjserver.herokuapp.com/graphql",
+  uri: "http://localhost:4000/graphql",
 });
 
 const EcommercePage = Loadable({
@@ -61,6 +61,7 @@ ReactDOM.render(
         <Route path="/components" component={ComponentsPage} />
         <Route path="/contact-us" component={ContactUsPage} />
         <Route exact path="/menu" component={EcommercePage} />
+        <Route exact path="/menu/:id" component={EcommercePage} />
         <Route path="/landing-page" component={LandingPage} />
         <Route exact path="/login" component={LoginPage} />
         <Route exact path="/logout" component={Logout} />

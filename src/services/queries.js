@@ -27,6 +27,7 @@ const getCategoryQuery = gql`
 const getProductsQuery = gql`
   {
     getProducts {
+      id
       name
       categoryId
       price
