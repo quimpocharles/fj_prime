@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { graphql } from "react-apollo";
 import { message } from "antd";
+import Divider from "@material-ui/core/Divider";
 
 // nodejs library that concatenates classes
 import classNames from "classnames";
@@ -65,22 +66,19 @@ function ShoppingCartPage(props) {
       if (props.data.getMember.cart === undefined) {
         cartData = "Cart is empty";
       } else {
-        props.data.getMember.cart.map((cartItem) => {
-          // console.log(cartItem);
-          cartData = cartItem.category.map((category) => {
-            if (category === null) {
-            } else {
-              console.log(category);
-              return (
-                <MenuItem
-                  key={category.id}
-                  itemName={cartItem.item.name}
-                  categoryName={category.name}
-                  getSub={cartItem.quantity * category.price}
-                />
-              );
-            }
-          });
+        cartData = props.data.getMember.cart.map((cartItem) => {
+          console.log(cartItem);
+          return (
+            <MenuItem
+              key={cartItem.itemId}
+              itemName={cartItem.item.name}
+              categoryName={cartItem.item.shell.name}
+              getSub={cartItem.quantity * cartItem.item.price}
+              price={cartItem.item.price}
+              img={cartItem.item.image_location}
+              quantity={cartItem.quantity}
+            />
+          );
         });
       }
     }
@@ -106,30 +104,20 @@ function ShoppingCartPage(props) {
       />
 
       <Parallax image={require("assets/img/qwe.jpg")} filter="dark" small>
-        <div className={classes.container}>
-          <GridContainer>
-            <GridItem
-              md={8}
-              sm={8}
-              className={classNames(
-                classes.mlAuto,
-                classes.mrAuto,
-                classes.textCenter
-              )}
-            >
-              <div className={classes.brand}>
-                <h1 className={classes.title}> Cart Page </h1>
-              </div>
-            </GridItem>
-          </GridContainer>
-        </div>
+        <div className={classes.container}></div>
       </Parallax>
 
       <div className={classNames(classes.main, classes.mainRaised)}>
         <div className={classes.container}>
           <GridContainer justify="center" alignItems="center">
-            <GridItem xs={12} md={12}>
-              <List>{cartData}</List>
+            <GridItem xs={12} md={10}>
+              <GridContainer
+                justify="center"
+                alignItems="center"
+                className={classes.section}
+              >
+                {cartData}
+              </GridContainer>
             </GridItem>
           </GridContainer>
         </div>

@@ -2,6 +2,8 @@
 import React, { useEffect } from "react";
 // nodejs library that concatenates classes
 import classNames from "classnames";
+import { flowRight as compose } from "lodash";
+import { message } from "antd";
 
 import { Link } from "react-router-dom";
 import { graphql } from "react-apollo";
@@ -10,13 +12,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
 // @material-ui/icons
 import ShoppingCart from "@material-ui/icons/ShoppingCart";
-import LocalShipping from "@material-ui/icons/LocalShipping";
-import VerifiedUser from "@material-ui/icons/VerifiedUser";
-import Favorite from "@material-ui/icons/Favorite";
 // core components
 import Header from "components/Header/Header.js";
 import HeaderLinks from "components/Header/HeaderLinks.js";
@@ -25,26 +22,21 @@ import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
 import Footer from "components/Footer/Footer.js";
 import Button from "components/CustomButtons/Button.js";
-import Accordion from "components/Accordion/Accordion.js";
-import InfoArea from "components/InfoArea/InfoArea.js";
-import Card from "components/Card/Card.js";
-import CardHeader from "components/Card/CardHeader.js";
-import CardBody from "components/Card/CardBody.js";
-import CardFooter from "components/Card/CardFooter.js";
-import Tooltip from "@material-ui/core/Tooltip";
 
-import productStyle from "assets/jss/material-kit-pro-react/views/productStyle.js";
+// relative imports
+import SectionLatestOffers from "./../EcommercePage/Sections/SectionLatestOffers";
 
 // gql
 import { getProductQuery } from "services/queries.js";
+import { addToCartMutation } from "services/mutations";
 
-import SectionLatestOffers from "./../EcommercePage/Sections/SectionLatestOffers";
+// style imports
+import productStyle from "assets/jss/material-kit-pro-react/views/productStyle.js";
 
 const useStyles = makeStyles(productStyle);
 
 function ProductPage(props) {
   const [colorSelect, setColorSelect] = React.useState("1");
-  const [sizeSelect, setSizeSelect] = React.useState("1");
   const [sub, setSub] = React.useState();
   const [hidden, setHidden] = React.useState(true);
   const classes = useStyles();
@@ -54,6 +46,14 @@ function ProductPage(props) {
   //   document.body.scrollTop = 0;
   // });
 
+  const success = () => {
+    message.success("Successfully added to cart");
+  };
+
+  const error = (errorMessage) => {
+    message.error(errorMessage);
+  };
+
   let productData;
 
   if (props.getProductQuery.loading) {
@@ -62,12 +62,43 @@ function ProductPage(props) {
     productData = props.getProductQuery.getProduct;
   }
 
-  console.log(props);
-
   const getTotalHandler = (e) => {
     setColorSelect(e.target.value);
     setSub(parseFloat(e.target.value) * parseFloat(productData.price));
     setHidden(false);
+  };
+
+  const addToCartHandler = (e) => {
+    // id of logged in user
+    let userID = localStorage.getItem("id");
+
+    // quantity being added to cart
+    let quantity = colorSelect;
+
+    // product being added to cart
+    let productID = props.match.params.id;
+
+    let cartItem = {
+      userId: userID,
+      itemId: productID,
+      quantity: parseInt(quantity),
+      categoryId: props.getProductQuery.getProduct.categoryId,
+    };
+
+    // add to cart mutation
+    props
+      .addToCartMutation({
+        variables: cartItem,
+      })
+      .then((res) => {
+        if (!res.data.addToCart) {
+          message.error("Something went wrong");
+          return false;
+        }
+        message.success("Successfully added to cart");
+
+        setColorSelect(1);
+      });
   };
 
   return (
@@ -102,8 +133,10 @@ function ProductPage(props) {
                     : productData.name.toUpperCase()}
                 </h2>
                 <p
-                  className={classes.cardDescription}
-                  style={{ textAlign: "right" }}
+                  className={classNames(
+                    classes.cardDescription,
+                    classes.pullRight
+                  )}
                 >
                   {productData === "loading..."
                     ? "loading..."
@@ -239,11 +272,20 @@ function ProductPage(props) {
                 </GridContainer>
                 <GridContainer className={classes.pullRight}>
                   <Link to="/menu">
-                    <Button plain color="transparent">
+                    <Button
+                      plain
+                      color="transparent"
+                      className={classes.cardDescription}
+                    >
                       Shop More
                     </Button>
                   </Link>
-                  <Button round color="info">
+                  <Button
+                    round
+                    color="info"
+                    type="submit"
+                    onClick={addToCartHandler}
+                  >
                     Add to Cart &nbsp; <ShoppingCart />
                   </Button>
                 </GridContainer>
@@ -277,13 +319,16 @@ function ProductPage(props) {
   );
 }
 
-export default graphql(getProductQuery, {
-  options: (props) => {
-    return {
-      variables: {
-        id: props.match.params.id,
-      },
-    };
-  },
-  name: "getProductQuery",
-})(ProductPage);
+export default compose(
+  graphql(addToCartMutation, { name: "addToCartMutation" }),
+  graphql(getProductQuery, {
+    options: (props) => {
+      return {
+        variables: {
+          id: props.match.params.id,
+        },
+      };
+    },
+    name: "getProductQuery",
+  })
+)(ProductPage);

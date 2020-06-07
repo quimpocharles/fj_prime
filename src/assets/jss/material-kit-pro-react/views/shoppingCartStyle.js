@@ -8,6 +8,7 @@ import {
   whiteColor,
   grayColor,
   mlAuto,
+  section,
 } from "assets/jss/material-kit-pro-react.js";
 
 import buttonGroup from "assets/jss/material-kit-pro-react/buttonGroupStyle.js";
@@ -18,6 +19,7 @@ const styles = (theme) => ({
   mainRaised,
   mrAuto,
   mlAuto,
+  section,
   cardTitle,
   ...buttonGroup,
   ...tooltips,

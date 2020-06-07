@@ -42,7 +42,17 @@ const getCartQuery = gql`
     getMember(id: $id) {
       first_name
       cart {
+        itemId
+        categoryId
         quantity
+        item {
+          image_location
+          name
+          price
+          shell {
+            name
+          }
+        }
       }
     }
   }

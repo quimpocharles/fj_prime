@@ -43,8 +43,8 @@ const Logout = () => {
 var hist = createBrowserHistory();
 
 const client = new ApolloClient({
-  uri: "https://fjserver.herokuapp.com/graphql",
-  // uri: "http://localhost:4000/graphql",
+  // uri: "https://fjserver.herokuapp.com/graphql",
+  uri: "http://localhost:4000/graphql",
 });
 
 const EcommercePage = Loadable({
