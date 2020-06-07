@@ -27,7 +27,7 @@ import Button from "components/CustomButtons/Button.js";
 import SectionLatestOffers from "./../EcommercePage/Sections/SectionLatestOffers";
 
 // gql
-import { getProductQuery } from "services/queries.js";
+import { getProductQuery, getCartQuery } from "services/queries.js";
 import { addToCartMutation } from "services/mutations";
 
 // style imports
@@ -89,6 +89,12 @@ function ProductPage(props) {
     props
       .addToCartMutation({
         variables: cartItem,
+        refetchQueries: [
+          {
+            query: getCartQuery,
+            variables: { id: localStorage.getItem("id") },
+          },
+        ],
       })
       .then((res) => {
         if (!res.data.addToCart) {
@@ -321,6 +327,7 @@ function ProductPage(props) {
 
 export default compose(
   graphql(addToCartMutation, { name: "addToCartMutation" }),
+  graphql(getCartQuery, { name: "getCartQuery" }),
   graphql(getProductQuery, {
     options: (props) => {
       return {

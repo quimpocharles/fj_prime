@@ -58,4 +58,22 @@ const addToCartMutation = gql`
 	}
 `;
 
-export { createMemberMutation, logInMutation, addToCartMutation };
+const updateCartMutation = gql`
+	mutation($userId: String, $itemId: String, $quantity: Int) {
+		updateCartItem(userId: $userId, itemId: $itemId, quantity: $quantity)
+	}
+`;
+
+const deleteCartMutation = gql`
+	mutation($userId: String, $itemId: String) {
+		deleteCartItem(userId: $userId, itemId: $itemId)
+	}
+`;
+
+export {
+	createMemberMutation,
+	logInMutation,
+	addToCartMutation,
+	updateCartMutation,
+	deleteCartMutation,
+};

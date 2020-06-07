@@ -27,54 +27,54 @@ import CheckoutPage from "views/CheckoutPage/Checkout.js";
 import "antd/dist/antd.css";
 
 const Loading = () => (
-  <div className="sk-folding-cube">
-    <div className="sk-cube1 sk-cube"></div>
-    <div className="sk-cube2 sk-cube"></div>
-    <div className="sk-cube4 sk-cube"></div>
-    <div className="sk-cube3 sk-cube"></div>
-  </div>
+	<div className="sk-folding-cube">
+		<div className="sk-cube1 sk-cube"></div>
+		<div className="sk-cube2 sk-cube"></div>
+		<div className="sk-cube4 sk-cube"></div>
+		<div className="sk-cube3 sk-cube"></div>
+	</div>
 );
 
 const Logout = () => {
-  localStorage.clear();
-  return <Redirect to="/login" />;
+	localStorage.clear();
+	return <Redirect to="/login" />;
 };
 
 var hist = createBrowserHistory();
 
 const client = new ApolloClient({
-  uri: "https://fjserver.herokuapp.com/graphql",
-  // uri: "http://localhost:4000/graphql",
+	uri: "https://fjserver.herokuapp.com/graphql",
+	// uri: "http://localhost:4000/graphql",
 });
 
 const EcommercePage = Loadable({
-  loader: () => import("views/EcommercePage/EcommercePage"),
-  loading: Loading,
+	loader: () => import("views/EcommercePage/EcommercePage"),
+	loading: Loading,
 });
 
 ReactDOM.render(
-  <ApolloProvider client={client}>
-    <Router history={hist}>
-      <Switch>
-        <Route path="/about-us" component={AboutUsPage} />
-        <Route path="/components" component={ComponentsPage} />
-        <Route path="/contact-us" component={ContactUsPage} />
-        <Route exact path="/menu" component={EcommercePage} />
-        <Route exact path="/menu/:id" component={ProductPage} />
-        <Route path="/landing-page" component={LandingPage} />
-        <Route exact path="/login" component={LoginPage} />
-        <Route exact path="/logout" component={Logout} />
-        <Route path="/pricing" component={PricingPage} />
-        <Route path="/profile-page" component={ProfilePage} />
-        <Route path="/product-page" component={ProductPage} />
-        <Route path="/sections" component={SectionsPage} />
-        <Route path="/cart" component={ShoppingCartPage} />
-        <Route path="/register" component={SignupPage} />
-        <Route path="/error-page" component={ErrorPage} />
-        <Route exact path="/" component={PresentationPage} />
-        <Route exact path="/checkout" component={CheckoutPage} />
-      </Switch>
-    </Router>
-  </ApolloProvider>,
-  document.getElementById("root")
+	<ApolloProvider client={client}>
+		<Router history={hist}>
+			<Switch>
+				<Route path="/about-us" component={AboutUsPage} />
+				<Route path="/components" component={ComponentsPage} />
+				<Route path="/contact-us" component={ContactUsPage} />
+				<Route exact path="/menu" component={EcommercePage} />
+				<Route exact path="/menu/:id" component={ProductPage} />
+				<Route path="/landing-page" component={LandingPage} />
+				<Route exact path="/login" component={LoginPage} />
+				<Route exact path="/logout" component={Logout} />
+				<Route path="/pricing" component={PricingPage} />
+				<Route path="/profile-page" component={ProfilePage} />
+				<Route path="/product-page" component={ProductPage} />
+				<Route path="/sections" component={SectionsPage} />
+				<Route path="/cart" component={ShoppingCartPage} />
+				<Route path="/register" component={SignupPage} />
+				<Route path="/error-page" component={ErrorPage} />
+				<Route exact path="/" component={PresentationPage} />
+				<Route exact path="/checkout" component={CheckoutPage} />
+			</Switch>
+		</Router>
+	</ApolloProvider>,
+	document.getElementById("root")
 );

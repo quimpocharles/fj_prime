@@ -26,11 +26,14 @@ const styles = (theme) => ({
   container: {
     ...container,
     zIndex: 1,
+    paddingTop: "2.5rem",
+    paddingBottom: "2.5rem",
   },
   title: {
     ...title,
+    fontSize: "1.5em",
     "&, & + h4": {
-      color: whiteColor,
+      color: grayColor[1],
     },
   },
   block: {
@@ -106,6 +109,7 @@ const styles = (theme) => ({
   },
   tdNumberAndButtonGroup: {
     lineHeight: "1 !important",
+    textAlign: "center",
     "& svg,& .fab,& .fas,& .far,& .fal,& .material-icons": {
       marginRight: "0",
     },

@@ -31,7 +31,7 @@ import shoppingCartStyle from "assets/jss/material-kit-pro-react/views/shoppingC
 import product2 from "assets/img/product2.jpg";
 import product3 from "assets/img/product3.jpg";
 
-import { getCartQuery } from "./../../services/queries.js";
+import { getCartQuery } from "services/queries.js";
 
 const useStyles = makeStyles(shoppingCartStyle);
 
@@ -41,17 +41,31 @@ function ShoppingCartPage(props) {
   const [firstLoad, setFirstLoad] = useState(true);
 
   let cartData;
+  console.log(props);
 
   useEffect(() => {
     if (firstLoad) {
       window.scrollTo(0, 0);
       document.body.scrollTop = 0;
     }
+
+    console.log(total);
   });
 
   const warning = (w) => {
     message.warning(w);
   };
+
+  const getTotalHandler = (t) => {
+    setTotal(t);
+  };
+
+  const getSubTotal = (q, p) => {
+    setSubTotal(parseInt(q) * parseInt(p));
+    setFirstLoad(false);
+  };
+
+  const classes = useStyles();
 
   if (!localStorage.getItem("isLoggedIn")) {
     warning("Please Log In first.");
@@ -62,33 +76,31 @@ function ShoppingCartPage(props) {
     if (props.data.loading) {
       cartData = <p>Fetching cart...</p>;
     } else {
-      console.log(props);
       if (props.data.getMember.cart === undefined) {
-        cartData = "Cart is empty";
       } else {
-        cartData = props.data.getMember.cart.map((cartItem) => {
-          console.log(cartItem);
-          return (
-            <MenuItem
-              key={cartItem.itemId}
-              itemName={cartItem.item.name}
-              categoryName={cartItem.item.shell.name}
-              getSub={cartItem.quantity * cartItem.item.price}
-              price={cartItem.item.price}
-              img={cartItem.item.image_location}
-              quantity={cartItem.quantity}
-            />
-          );
-        });
+        if (props.data.getMember.cart.length === 0) {
+          cartData = <h2 className={classes.title}> Your Cart Is Empty. </h2>;
+        } else {
+          cartData = props.data.getMember.cart.map((cartItem) => {
+            return (
+              <MenuItem
+                key={cartItem.item.itemId}
+                itemName={cartItem.item.name}
+                itemId={cartItem.itemId}
+                categoryName={cartItem.item.shell.name}
+                getSub={getSubTotal}
+                price={cartItem.item.price}
+                img={cartItem.item.image_location}
+                quantity={cartItem.quantity}
+                total={total}
+                getTotal={getTotalHandler}
+              />
+            );
+          });
+        }
       }
     }
   }
-
-  const getSubTotal = (sub) => {
-    setSubTotal(parseInt(subTotal) + parseInt(sub));
-    setFirstLoad(false);
-  };
-  const classes = useStyles();
 
   return (
     <>
@@ -111,13 +123,13 @@ function ShoppingCartPage(props) {
         <div className={classes.container}>
           <GridContainer justify="center" alignItems="center">
             <GridItem xs={12} md={10}>
-              <GridContainer
-                justify="center"
-                alignItems="center"
-                className={classes.section}
-              >
+              <h6 className={classes.title}>Shopping Cart</h6>
+              <GridContainer justify="center" alignItems="center">
                 {cartData}
               </GridContainer>
+              <h6 className={classNames(classes.title, classes.textRight)}>
+                Total: ₱ {subTotal}
+              </h6>
             </GridItem>
           </GridContainer>
         </div>
