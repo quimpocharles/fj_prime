@@ -69,42 +69,49 @@ function ProductPage(props) {
   };
 
   const addToCartHandler = (e) => {
-    // id of logged in user
-    let userID = localStorage.getItem("id");
+    if (!localStorage.getItem("isLoggedIn")) {
+      warning("Please Log In first.");
+      setTimeout(() => {
+        props.history.push("/login");
+      }, 3000);
+    } else {
+      // id of logged in user
+      let userID = localStorage.getItem("id");
 
-    // quantity being added to cart
-    let quantity = colorSelect;
+      // quantity being added to cart
+      let quantity = colorSelect;
 
-    // product being added to cart
-    let productID = props.match.params.id;
+      // product being added to cart
+      let productID = props.match.params.id;
 
-    let cartItem = {
-      userId: userID,
-      itemId: productID,
-      quantity: parseInt(quantity),
-      categoryId: props.getProductQuery.getProduct.categoryId,
-    };
+      let cartItem = {
+        userId: userID,
+        itemId: productID,
+        quantity: parseInt(quantity),
+        categoryId: props.getProductQuery.getProduct.categoryId,
+      };
 
-    // add to cart mutation
-    props
-      .addToCartMutation({
-        variables: cartItem,
-        refetchQueries: [
-          {
-            query: getCartQuery,
-            variables: { id: localStorage.getItem("id") },
-          },
-        ],
-      })
-      .then((res) => {
-        if (!res.data.addToCart) {
-          message.error("Something went wrong");
-          return false;
-        }
-        message.success("Successfully added to cart");
+      // add to cart mutation
+      props
+        .addToCartMutation({
+          variables: cartItem,
+          refetchQueries: [
+            {
+              query: getCartQuery,
+              variables: { id: localStorage.getItem("id") },
+            },
+          ],
+        })
+        .then((res) => {
+          if (!res.data.addToCart) {
+            message.error("Something went wrong");
+            return false;
+          }
+          message.success("Successfully added to cart");
 
-        setColorSelect(1);
-      });
+          setColorSelect(1);
+        });
+    }
   };
 
   return (
