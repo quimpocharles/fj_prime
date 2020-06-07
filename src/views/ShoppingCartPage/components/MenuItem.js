@@ -25,7 +25,7 @@ const MenuItem = (props) => {
 	const [price, setPrice] = useState(props.price);
 	const [first, setFirst] = useState(true);
 
-	console.log(props);
+	console.log(props.total);
 
 	const warning = (w) => {
 		message.warning(w);
@@ -34,8 +34,10 @@ const MenuItem = (props) => {
 		message.success(w);
 	};
 
+	props.getTotal(props.total);
+
 	function confirm(e) {
-		console.log(e.currentTarget.value);
+		// console.log(e.currentTarget.value);
 
 		let deleteCartItem = {
 			userId: localStorage.getItem("id"),
@@ -53,11 +55,11 @@ const MenuItem = (props) => {
 				],
 			})
 			.then((res) => {
-				console.log(res);
 				if (res.data.deleteCartItem === null) {
 					success("Item successfully removed from cart");
 				}
 			});
+		props.getCartQuery.refetch();
 	}
 
 	function cancel(e) {
@@ -74,7 +76,7 @@ const MenuItem = (props) => {
 			return false;
 		}
 		setQuantity(quantity - 1);
-		props.getSub(quantity - 1, price);
+		props.getSub(quantity - 1, price, e.currentTarget.value);
 
 		let cartItem = {
 			userId: localStorage.getItem("id"),
@@ -89,12 +91,14 @@ const MenuItem = (props) => {
 			.then((res) => {
 				if (!res.data.updateCartItem) {
 					warning("something went wrong");
+					return false;
 				}
+				props.getCartQuery.refetch();
 			});
 	};
 
 	const addClickHandler = (e) => {
-		console.log(e.currentTarget.value);
+		// console.log(e.currentTarget.value);
 		if (quantity >= 20) {
 			warning("You can only order 20 pcs per item");
 			setQuantity(20);
@@ -103,7 +107,7 @@ const MenuItem = (props) => {
 		}
 
 		setQuantity(quantity + 1);
-		props.getSub(quantity + 1, price);
+		props.getSub(quantity + 1, price, e.currentTarget.value);
 
 		let cartItem = {
 			userId: localStorage.getItem("id"),
@@ -118,7 +122,10 @@ const MenuItem = (props) => {
 			.then((res) => {
 				if (!res.data.updateCartItem) {
 					warning("something went wrong");
+					return false;
 				}
+
+				props.getCartQuery.refetch();
 			});
 	};
 
@@ -192,7 +199,14 @@ const MenuItem = (props) => {
 };
 
 export default compose(
-	graphql(getCartQuery, { name: "getCartQuery" }),
+	graphql(getCartQuery, {
+		name: "getCartQuery",
+		options: (props) => {
+			return {
+				variables: { id: localStorage.getItem("id") },
+			};
+		},
+	}),
 	graphql(updateCartMutation, { name: "updateCartMutation" }),
 	graphql(deleteCartMutation, { name: "deleteCartMutation" })
 )(MenuItem);

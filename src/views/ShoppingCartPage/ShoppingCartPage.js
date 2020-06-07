@@ -48,31 +48,23 @@ function ShoppingCartPage(props) {
       window.scrollTo(0, 0);
       document.body.scrollTop = 0;
     }
-
-    console.log(total);
   });
 
   const warning = (w) => {
     message.warning(w);
   };
 
-  const getTotalHandler = (t) => {
-    setTotal(t);
-  };
-
-  const getSubTotal = (q, p) => {
-    setSubTotal(parseInt(q) * parseInt(p));
+  const getSubTotal = (q, p, itemId) => {
+    // setSubTotal(parseInt(q) * parseInt(p));
     setFirstLoad(false);
+    console.log(q, p, itemId);
   };
 
-  const classes = useStyles();
+  const getTotalHandler = (cartTotal) => {
+    setTotal(cartTotal);
+  };
 
-  if (!localStorage.getItem("isLoggedIn")) {
-    warning("Please Log In first.");
-    setTimeout(() => {
-      props.history.push("/login");
-    }, 3000);
-  } else {
+  const getCartContents = () => {
     if (props.data.loading) {
       cartData = <p>Fetching cart...</p>;
     } else {
@@ -81,7 +73,9 @@ function ShoppingCartPage(props) {
         if (props.data.getMember.cart.length === 0) {
           cartData = <h2 className={classes.title}> Your Cart Is Empty. </h2>;
         } else {
+          let cartTotal = 0;
           cartData = props.data.getMember.cart.map((cartItem) => {
+            cartTotal = cartTotal + cartItem.item.price * cartItem.quantity;
             return (
               <MenuItem
                 key={cartItem.item.itemId}
@@ -92,14 +86,26 @@ function ShoppingCartPage(props) {
                 price={cartItem.item.price}
                 img={cartItem.item.image_location}
                 quantity={cartItem.quantity}
-                total={total}
+                total={cartTotal}
                 getTotal={getTotalHandler}
+                getCart={getCartContents}
               />
             );
           });
         }
       }
     }
+  };
+
+  const classes = useStyles();
+
+  if (!localStorage.getItem("isLoggedIn")) {
+    warning("Please Log In first.");
+    setTimeout(() => {
+      props.history.push("/login");
+    }, 3000);
+  } else {
+    getCartContents();
   }
 
   return (
@@ -128,7 +134,7 @@ function ShoppingCartPage(props) {
                 {cartData}
               </GridContainer>
               <h6 className={classNames(classes.title, classes.textRight)}>
-                Total: ₱ {subTotal}
+                Total: ₱ {total}
               </h6>
             </GridItem>
           </GridContainer>

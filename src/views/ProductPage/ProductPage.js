@@ -334,7 +334,13 @@ function ProductPage(props) {
 
 export default compose(
   graphql(addToCartMutation, { name: "addToCartMutation" }),
-  graphql(getCartQuery, { name: "getCartQuery" }),
+  graphql(getCartQuery, {
+    options: (props) => {
+      return {
+        variables: { id: localStorage.getItem("id") },
+      };
+    },
+  }),
   graphql(getProductQuery, {
     options: (props) => {
       return {
