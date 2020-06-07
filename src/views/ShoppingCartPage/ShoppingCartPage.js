@@ -1,6 +1,7 @@
 /*eslint-disable*/
 import React, { useState, useEffect } from "react";
 import { graphql } from "react-apollo";
+import { message } from "antd";
 
 // nodejs library that concatenates classes
 import classNames from "classnames";
@@ -47,34 +48,49 @@ function ShoppingCartPage(props) {
     }
   });
 
+  const warning = (w) => {
+    message.warning(w);
+  };
+
+  if (!localStorage.getItem("isLoggedIn")) {
+    warning("Please Log In first.");
+    setTimeout(() => {
+      props.history.push("/login");
+    }, 3000);
+  } else {
+    if (props.data.loading) {
+      cartData = <p>Fetching cart...</p>;
+    } else {
+      console.log(props);
+      if (props.data.getMember.cart === undefined) {
+        cartData = "Cart is empty";
+      } else {
+        props.data.getMember.cart.map((cartItem) => {
+          // console.log(cartItem);
+          cartData = cartItem.category.map((category) => {
+            if (category === null) {
+            } else {
+              console.log(category);
+              return (
+                <MenuItem
+                  key={category.id}
+                  itemName={cartItem.item.name}
+                  categoryName={category.name}
+                  getSub={cartItem.quantity * category.price}
+                />
+              );
+            }
+          });
+        });
+      }
+    }
+  }
+
   const getSubTotal = (sub) => {
     setSubTotal(parseInt(subTotal) + parseInt(sub));
     setFirstLoad(false);
   };
   const classes = useStyles();
-
-  if (props.data.loading) {
-    cartData = <p>Fetching cart...</p>;
-  } else {
-    props.data.getMember.cart.map((cartItem) => {
-      console.log(cartItem);
-      cartData = cartItem.category.map((category) => {
-        if (category === null) {
-        } else {
-          console.log(category);
-          return (
-            <MenuItem
-              key={category.id}
-              itemName={cartItem.item.name}
-              categoryName={category.name}
-              price={category.price}
-              getSub={cartItem.quantity * category.price}
-            />
-          );
-        }
-      });
-    });
-  }
 
   return (
     <>

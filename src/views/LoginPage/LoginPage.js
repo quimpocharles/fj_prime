@@ -47,8 +47,6 @@ function LoginPage(props) {
   const [email, setEmail] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-  console.log(props);
-
   React.useEffect(() => {
     window.scrollTo(0, 0);
     document.body.scrollTop = 0;

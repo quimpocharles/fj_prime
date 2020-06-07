@@ -97,11 +97,16 @@ export default function HeaderLinks(props) {
 
   if (localStorage.getItem("isLoggedIn")) {
     navItems = (
-      <ListItem className={classes.listItem}>
-        <Link to="/logout" className={classes.navLink}>
-          Logout
+      <>
+        <Link to="/cart" className={classes.navLink}>
+          <Cart /> Cart
         </Link>
-      </ListItem>
+        <ListItem className={classes.listItem}>
+          <Link to="/logout" className={classes.navLink}>
+            Logout
+          </Link>
+        </ListItem>
+      </>
     );
   } else {
     navItems = (
@@ -131,11 +136,7 @@ export default function HeaderLinks(props) {
           <ListIcon /> Gallery
         </Link>
       </ListItem>
-      <ListItem className={classes.listItem}>
-        <Link to="/cart" className={classes.navLink}>
-          <Cart /> Cart
-        </Link>
-      </ListItem>
+
       {navItems}
     </List>
   );

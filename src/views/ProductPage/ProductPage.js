@@ -62,6 +62,8 @@ function ProductPage(props) {
     productData = props.getProductQuery.getProduct;
   }
 
+  console.log(props);
+
   const getTotalHandler = (e) => {
     setColorSelect(e.target.value);
     setSub(parseFloat(e.target.value) * parseFloat(productData.price));
@@ -99,6 +101,14 @@ function ProductPage(props) {
                     ? "loading..."
                     : productData.name.toUpperCase()}
                 </h2>
+                <p
+                  className={classes.cardDescription}
+                  style={{ textAlign: "right" }}
+                >
+                  {productData === "loading..."
+                    ? "loading..."
+                    : productData.shell.name.toUpperCase() + " FLAVOR"}
+                </p>
                 <h3 className={classes.mainPrice}>
                   ₱{" "}
                   {productData === "loading..."

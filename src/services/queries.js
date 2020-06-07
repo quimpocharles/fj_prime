@@ -43,14 +43,6 @@ const getCartQuery = gql`
       first_name
       cart {
         quantity
-        item {
-          name
-        }
-        category {
-          price
-          id
-          name
-        }
       }
     }
   }
@@ -64,6 +56,9 @@ const getProductQuery = gql`
       price
       categoryId
       image_location
+      shell {
+        name
+      }
     }
   }
 `;
