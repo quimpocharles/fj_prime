@@ -25,7 +25,7 @@ const MenuItem = (props) => {
 	const [price, setPrice] = useState(props.price);
 	const [first, setFirst] = useState(true);
 
-	console.log(props.total);
+	// console.log(props.total);
 
 	const warning = (w) => {
 		message.warning(w);
@@ -59,7 +59,6 @@ const MenuItem = (props) => {
 					success("Item successfully removed from cart");
 				}
 			});
-		props.getCartQuery.refetch();
 	}
 
 	function cancel(e) {
@@ -93,7 +92,6 @@ const MenuItem = (props) => {
 					warning("something went wrong");
 					return false;
 				}
-				props.getCartQuery.refetch();
 			});
 	};
 
@@ -124,8 +122,6 @@ const MenuItem = (props) => {
 					warning("something went wrong");
 					return false;
 				}
-
-				props.getCartQuery.refetch();
 			});
 	};
 
@@ -154,7 +150,7 @@ const MenuItem = (props) => {
 				<Button
 					color="transparent"
 					justIcon
-					small={true}
+					size="sm"
 					onClick={lessClickHandler}
 					value={props.itemId}
 				>
@@ -166,7 +162,7 @@ const MenuItem = (props) => {
 				<Button
 					color="transparent"
 					justIcon
-					small={true}
+					size="sm"
 					onClick={addClickHandler}
 					value={props.itemId}
 				>

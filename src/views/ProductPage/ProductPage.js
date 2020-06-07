@@ -286,7 +286,7 @@ function ProductPage(props) {
                 <GridContainer className={classes.pullRight}>
                   <Link to="/menu">
                     <Button
-                      plain
+                      simple
                       color="transparent"
                       className={classes.cardDescription}
                     >

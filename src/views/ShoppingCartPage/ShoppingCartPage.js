@@ -19,7 +19,6 @@ import Parallax from "components/Parallax/Parallax.js";
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
 import Footer from "components/Footer/Footer.js";
-import Button from "components/CustomButtons/Button.js";
 import Card from "components/Card/Card.js";
 import CardBody from "components/Card/CardBody.js";
 import List from "@material-ui/core/List";
@@ -41,7 +40,7 @@ function ShoppingCartPage(props) {
   const [firstLoad, setFirstLoad] = useState(true);
 
   let cartData;
-  console.log(props);
+  // console.log(props);
 
   useEffect(() => {
     if (firstLoad) {
@@ -58,6 +57,8 @@ function ShoppingCartPage(props) {
     // setSubTotal(parseInt(q) * parseInt(p));
     setFirstLoad(false);
     console.log(q, p, itemId);
+    console.log(props);
+    props.data.refetch();
   };
 
   const getTotalHandler = (cartTotal) => {

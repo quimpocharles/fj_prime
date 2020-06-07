@@ -32,7 +32,7 @@ const Product = ({ ...rest }) => {
     productData = rest.productsArray
       .sort((a, b) => a.name.localeCompare(b.name))
       .map((product) => {
-        console.log(product);
+        // console.log(product);
 
         return (
           <GridItem xs={6} md={4}>

@@ -44,7 +44,7 @@ import Product from "./components/Product";
 const useStyles = makeStyles(styles);
 
 function EcommercePage(props) {
-  console.log(props.data);
+  // console.log(props.data);
   const [cart, setCart] = useState([]);
 
   let productData;
