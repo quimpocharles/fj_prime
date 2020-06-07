@@ -70,7 +70,7 @@ function ProductPage(props) {
 
   const addToCartHandler = (e) => {
     if (!localStorage.getItem("isLoggedIn")) {
-      warning("Please Log In first.");
+      error("Please Log In first.");
       setTimeout(() => {
         props.history.push("/login");
       }, 3000);
