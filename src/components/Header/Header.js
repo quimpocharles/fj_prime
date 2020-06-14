@@ -13,7 +13,7 @@ import Button from "@material-ui/core/Button";
 import Hidden from "@material-ui/core/Hidden";
 import Drawer from "@material-ui/core/Drawer";
 
-import fjLogo from "assets/img/fj_logo.png";
+import fjLogo from "assets/img/foodhub.png";
 
 // @material-ui/icons
 import Menu from "@material-ui/icons/Menu";

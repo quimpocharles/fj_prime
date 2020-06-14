@@ -121,12 +121,12 @@ function LoginPage(props) {
     <div>
       <Header
         brand="FJ Primeholdings"
-        links={<HeaderLinks dropdownHoverColor="info" />}
+        links={<HeaderLinks dropdownHoverColor="warning" />}
         fixed
         color="transparent"
         changeColorOnScroll={{
           height: 100,
-          color: "info",
+          color: "warning",
         }}
       />
       <div

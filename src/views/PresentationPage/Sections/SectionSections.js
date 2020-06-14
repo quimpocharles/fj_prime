@@ -60,7 +60,7 @@ export default function SectionSections() {
               <h5 className={classes.description}></h5>
               <Link to={"/menu"}>
                 <Button
-                  color="info"
+                  color="danger"
                   target="_blank"
                   className={classes.navButton}
                   round

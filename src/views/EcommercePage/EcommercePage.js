@@ -66,12 +66,12 @@ function EcommercePage(props) {
     <>
       <Header
         brand="FJ Primeholdings"
-        links={<HeaderLinks dropdownHoverColor="info" />}
+        links={<HeaderLinks dropdownHoverColor="warning" />}
         fixed
         color="transparent"
         changeColorOnScroll={{
           height: 100,
-          color: "info",
+          color: "warning",
         }}
       />
       <Parallax image={require("assets/img/qwe.jpg")} filter="dark" small>

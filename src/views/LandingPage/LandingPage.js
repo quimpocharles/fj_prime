@@ -38,11 +38,11 @@ export default function LandingPage({ ...rest }) {
       <Header
         color="transparent"
         brand="Material Kit PRO React"
-        links={<HeaderLinks dropdownHoverColor="info" />}
+        links={<HeaderLinks dropdownHoverColor="warning" />}
         fixed
         changeColorOnScroll={{
           height: 300,
-          color: "info"
+          color: "warning",
         }}
         {...rest}
       />

@@ -119,9 +119,9 @@ function ProductPage(props) {
       <div className={classes.productPage}>
         <Header
           brand="FJ Primeholdings"
-          links={<HeaderLinks dropdownHoverColor="info" />}
+          links={<HeaderLinks dropdownHoverColor="warning" />}
           fixed
-          color="info"
+          color="warning"
         />
         <Parallax image={require("assets/img/qwe.jpg")} filter="dark" small>
           <div className={classes.container}></div>
