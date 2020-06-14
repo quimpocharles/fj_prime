@@ -11,6 +11,9 @@ import Button from "components/CustomButtons/Button.js";
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
 import GridContainer from "components/Grid/GridContainer.js";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
 
 // gql
 import { getCartQuery } from "services/queries.js";
@@ -19,11 +22,12 @@ import { updateCartMutation, deleteCartMutation } from "services/mutations.js";
 import shoppingCartStyle from "assets/jss/material-kit-pro-react/views/shoppingCartStyle.js";
 const useStyles = makeStyles(shoppingCartStyle);
 
-const MenuItem = (props) => {
+const Menu = (props) => {
 	const classes = useStyles();
 	const [quantity, setQuantity] = useState(props.quantity);
 	const [price, setPrice] = useState(props.price);
 	const [first, setFirst] = useState(true);
+	const [cartTotal, setCartTotal] = useState(props.total);
 
 	// console.log(props.total);
 
@@ -33,8 +37,6 @@ const MenuItem = (props) => {
 	const success = (w) => {
 		message.success(w);
 	};
-
-	props.getTotal(props.total);
 
 	function confirm(e) {
 		// console.log(e.currentTarget.value);
@@ -66,63 +68,107 @@ const MenuItem = (props) => {
 		message.error("Click on No");
 	}
 
-	const lessClickHandler = async (e) => {
-		console.log(e.currentTarget.value);
-		if (quantity <= 1) {
-			warning("Quantity should be at least 1 item");
-			setQuantity(1);
+	// const lessClickHandler = async (e) => {
+	// 	console.log(e.currentTarget.value);
+	// 	if (quantity <= 1) {
+	// 		warning("Quantity should be at least 1 item");
+	// 		setQuantity(1);
 
-			return false;
-		}
-		setQuantity(quantity - 1);
-		props.getSub(quantity - 1, price, e.currentTarget.value);
+	// 		return false;
+	// 	}
+	// 	setQuantity(quantity - 1);
+	// 	props.getSub(quantity - 1, price, e.currentTarget.value);
 
+	// 	let cartItem = {
+	// 		userId: localStorage.getItem("id"),
+	// 		itemId: e.currentTarget.value,
+	// 		quantity: quantity - 1,
+	// 	};
+
+	// 	props
+	// 		.updateCartMutation({
+	// 			variables: cartItem,
+	// 			refetchQueries: [
+	// 				{
+	// 					query: getCartQuery,
+	// 					variables: { id: localStorage.getItem("id") },
+	// 				},
+	// 			],
+	// 		})
+	// 		.then((res) => {
+	// 			if (!res.data.updateCartItem) {
+	// 				warning("something went wrong");
+	// 				return false;
+	// 			}
+	// 			props.getCartQuery.refetch();
+	// 		});
+	// };
+
+	// const addClickHandler = (e) => {
+	// 	// console.log(e.currentTarget.value);
+	// 	if (quantity >= 20) {
+	// 		warning("You can only order 20 pcs per item");
+	// 		setQuantity(20);
+
+	// 		return false;
+	// 	}
+
+	// 	setQuantity(quantity + 1);
+	// 	props.getSub(quantity + 1, price, e.currentTarget.value);
+
+	// 	let cartItem = {
+	// 		userId: localStorage.getItem("id"),
+	// 		itemId: e.currentTarget.value,
+	// 		quantity: quantity + 1,
+	// 	};
+
+	// props
+	// 	.updateCartMutation({
+	// 		variables: cartItem,
+	// 		refetchQueries: [
+	// 			{
+	// 				query: getCartQuery,
+	// 				variables: { id: localStorage.getItem("id") },
+	// 			},
+	// 		],
+	// 	})
+	// 	.then((res) => {
+	// 		if (!res.data.updateCartItem) {
+	// 			warning("something went wrong");
+	// 			return false;
+	// 		}
+	// 		props.getCartQuery.refetch();
+	// 	});
+	// };
+
+	const getTotalHandler = (e) => {
+		setQuantity(e.target.value);
 		let cartItem = {
 			userId: localStorage.getItem("id"),
-			itemId: e.currentTarget.value,
-			quantity: quantity - 1,
+			itemId: e.target.name,
+			quantity: parseInt(e.target.value),
 		};
 
 		props
 			.updateCartMutation({
 				variables: cartItem,
+				refetchQueries: [
+					{
+						query: getCartQuery,
+						variables: { id: localStorage.getItem("id") },
+					},
+				],
 			})
 			.then((res) => {
 				if (!res.data.updateCartItem) {
 					warning("something went wrong");
 					return false;
 				}
+				props.getSub(quantity, price, e.target.name);
+				props.getCartQuery.refetch();
 			});
-	};
 
-	const addClickHandler = (e) => {
-		// console.log(e.currentTarget.value);
-		if (quantity >= 20) {
-			warning("You can only order 20 pcs per item");
-			setQuantity(20);
-
-			return false;
-		}
-
-		setQuantity(quantity + 1);
-		props.getSub(quantity + 1, price, e.currentTarget.value);
-
-		let cartItem = {
-			userId: localStorage.getItem("id"),
-			itemId: e.currentTarget.value,
-			quantity: quantity + 1,
-		};
-
-		props
-			.updateCartMutation({
-				variables: cartItem,
-			})
-			.then((res) => {
-				if (!res.data.updateCartItem) {
-					warning("something went wrong");
-					return false;
-				}
-			});
+		// console.log(e.target);
 	};
 
 	useEffect(() => {
@@ -130,6 +176,7 @@ const MenuItem = (props) => {
 			setFirst(false);
 		}
 	});
+	props.getTotal(props.total);
 
 	return (
 		<>
@@ -147,27 +194,210 @@ const MenuItem = (props) => {
 			</GridItem>
 
 			<GridItem xs={7} md={3} className={classes.tdNumberAndButtonGroup}>
-				<Button
-					color="transparent"
-					justIcon
-					size="sm"
-					onClick={lessClickHandler}
-					value={props.itemId}
-				>
-					<RemoveIcon className={classes.icon} />
-				</Button>
-				<Button color="info" round>
-					{quantity}
-				</Button>
-				<Button
-					color="transparent"
-					justIcon
-					size="sm"
-					onClick={addClickHandler}
-					value={props.itemId}
-				>
-					<AddIcon className={classes.icon} />
-				</Button>
+				<FormControl fullWidth className={classes.selectFormControl}>
+					<Select
+						MenuProps={{
+							className: classes.selectMenu,
+						}}
+						classes={{
+							select: classes.select,
+						}}
+						value={quantity}
+						onChange={getTotalHandler}
+						inputProps={{
+							name: props.itemId,
+							id: "color-select",
+						}}
+					>
+						<MenuItem
+							classes={{
+								root: classes.selectMenuItem,
+								selected: classes.selectMenuItemSelected,
+							}}
+							value="1"
+						>
+							1
+						</MenuItem>
+						<MenuItem
+							classes={{
+								root: classes.selectMenuItem,
+								selected: classes.selectMenuItemSelected,
+							}}
+							value="2"
+						>
+							2
+						</MenuItem>
+						<MenuItem
+							classes={{
+								root: classes.selectMenuItem,
+								selected: classes.selectMenuItemSelected,
+							}}
+							value="3"
+						>
+							3
+						</MenuItem>
+
+						<MenuItem
+							classes={{
+								root: classes.selectMenuItem,
+								selected: classes.selectMenuItemSelected,
+							}}
+							value="4"
+						>
+							4
+						</MenuItem>
+						<MenuItem
+							classes={{
+								root: classes.selectMenuItem,
+								selected: classes.selectMenuItemSelected,
+							}}
+							value="5"
+						>
+							5
+						</MenuItem>
+						<MenuItem
+							classes={{
+								root: classes.selectMenuItem,
+								selected: classes.selectMenuItemSelected,
+							}}
+							value="6"
+						>
+							6
+						</MenuItem>
+
+						<MenuItem
+							classes={{
+								root: classes.selectMenuItem,
+								selected: classes.selectMenuItemSelected,
+							}}
+							value="7"
+						>
+							7
+						</MenuItem>
+
+						<MenuItem
+							classes={{
+								root: classes.selectMenuItem,
+								selected: classes.selectMenuItemSelected,
+							}}
+							value="8"
+						>
+							8
+						</MenuItem>
+						<MenuItem
+							classes={{
+								root: classes.selectMenuItem,
+								selected: classes.selectMenuItemSelected,
+							}}
+							value="9"
+						>
+							9
+						</MenuItem>
+						<MenuItem
+							classes={{
+								root: classes.selectMenuItem,
+								selected: classes.selectMenuItemSelected,
+							}}
+							value="10"
+						>
+							10
+						</MenuItem>
+
+						<MenuItem
+							classes={{
+								root: classes.selectMenuItem,
+								selected: classes.selectMenuItemSelected,
+							}}
+							value="11"
+						>
+							11
+						</MenuItem>
+						<MenuItem
+							classes={{
+								root: classes.selectMenuItem,
+								selected: classes.selectMenuItemSelected,
+							}}
+							value="12"
+						>
+							12
+						</MenuItem>
+						<MenuItem
+							classes={{
+								root: classes.selectMenuItem,
+								selected: classes.selectMenuItemSelected,
+							}}
+							value="13"
+						>
+							13
+						</MenuItem>
+
+						<MenuItem
+							classes={{
+								root: classes.selectMenuItem,
+								selected: classes.selectMenuItemSelected,
+							}}
+							value="14"
+						>
+							14
+						</MenuItem>
+						<MenuItem
+							classes={{
+								root: classes.selectMenuItem,
+								selected: classes.selectMenuItemSelected,
+							}}
+							value="15"
+						>
+							15
+						</MenuItem>
+						<MenuItem
+							classes={{
+								root: classes.selectMenuItem,
+								selected: classes.selectMenuItemSelected,
+							}}
+							value="16"
+						>
+							16
+						</MenuItem>
+
+						<MenuItem
+							classes={{
+								root: classes.selectMenuItem,
+								selected: classes.selectMenuItemSelected,
+							}}
+							value="17"
+						>
+							17
+						</MenuItem>
+
+						<MenuItem
+							classes={{
+								root: classes.selectMenuItem,
+								selected: classes.selectMenuItemSelected,
+							}}
+							value="18"
+						>
+							18
+						</MenuItem>
+						<MenuItem
+							classes={{
+								root: classes.selectMenuItem,
+								selected: classes.selectMenuItemSelected,
+							}}
+							value="19"
+						>
+							19
+						</MenuItem>
+						<MenuItem
+							classes={{
+								root: classes.selectMenuItem,
+								selected: classes.selectMenuItemSelected,
+							}}
+							value="20"
+						>
+							20
+						</MenuItem>
+					</Select>
+				</FormControl>
 				<Popconfirm
 					title="Are you sure you want to remove this item?"
 					onConfirm={confirm}
@@ -205,4 +435,4 @@ export default compose(
 	}),
 	graphql(updateCartMutation, { name: "updateCartMutation" }),
 	graphql(deleteCartMutation, { name: "deleteCartMutation" })
-)(MenuItem);
+)(Menu);

@@ -56,13 +56,15 @@ function ShoppingCartPage(props) {
   const getSubTotal = (q, p, itemId) => {
     // setSubTotal(parseInt(q) * parseInt(p));
     setFirstLoad(false);
-    console.log(q, p, itemId);
-    console.log(props);
+    // console.log(q, p, itemId);
+    // console.log(props);
     props.data.refetch();
   };
 
-  const getTotalHandler = (cartTotal) => {
-    setTotal(cartTotal);
+  const getTotalHandler = (itemCartTotal) => {
+    console.log(itemCartTotal);
+    setTotal(itemCartTotal);
+    console.log(props.data);
   };
 
   const getCartContents = () => {
@@ -77,6 +79,8 @@ function ShoppingCartPage(props) {
           let cartTotal = 0;
           cartData = props.data.getMember.cart.map((cartItem) => {
             cartTotal = cartTotal + cartItem.item.price * cartItem.quantity;
+            // console.log("quantity " + cartItem.quantity);
+            // console.log("price: " + cartItem.item.price);
             return (
               <MenuItem
                 key={cartItem.item.itemId}
