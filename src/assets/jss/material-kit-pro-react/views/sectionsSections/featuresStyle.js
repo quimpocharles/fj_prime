@@ -84,6 +84,10 @@ const features = {
       },
     },
   },
+  loadingCenter: {
+    display: "block !important",
+    margin: "0 auto",
+  },
   gridContainer: {},
   gridItem: {},
   textCenter: {

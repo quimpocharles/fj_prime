@@ -2,6 +2,8 @@ import React, { useState } from "react";
 
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import Box from "@material-ui/core/Box";
 
 import Layers from "@material-ui/icons/Layers";
 import { Link } from "react-router-dom";
@@ -23,11 +25,16 @@ const Product = ({ ...rest }) => {
   const [image, setImage] = useState(rest.img);
   const [desc, setDesc] = useState(rest.category);
   let colorCircles;
+  console.log(classes);
 
   let productData;
 
   if (rest.productsArray === []) {
-    productData = "loading...";
+    productData = (
+      <GridItem xs={12}>
+        <CircularProgress color="inherit" className={classes.loadingCenter} />
+      </GridItem>
+    );
   } else {
     productData = rest.productsArray
       .sort((a, b) => a.name.localeCompare(b.name))
