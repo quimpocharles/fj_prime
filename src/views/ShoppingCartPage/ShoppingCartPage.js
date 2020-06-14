@@ -9,6 +9,7 @@ import classNames from "classnames";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import Tooltip from "@material-ui/core/Tooltip";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 // @material-ui/icons
 
@@ -54,10 +55,7 @@ function ShoppingCartPage(props) {
   };
 
   const getSubTotal = (q, p, itemId) => {
-    // setSubTotal(parseInt(q) * parseInt(p));
     setFirstLoad(false);
-    // console.log(q, p, itemId);
-    // console.log(props);
     props.data.refetch();
   };
 
@@ -67,18 +65,26 @@ function ShoppingCartPage(props) {
     console.log(props.data);
   };
 
+  let cartArray;
   const getCartContents = () => {
     if (props.data.loading) {
       cartData = <p>Fetching cart...</p>;
     } else {
       if (props.data.getMember.cart === undefined) {
+        cartData = <h2 className={classes.title}> Your Cart Is Empty. </h2>;
       } else {
         if (props.data.getMember.cart.length === 0) {
           cartData = <h2 className={classes.title}> Your Cart Is Empty. </h2>;
+          cartArray = " ";
         } else {
           let cartTotal = 0;
+          cartArray = `Total: ₱ ${total}`;
           cartData = props.data.getMember.cart.map((cartItem) => {
-            cartTotal = cartTotal + cartItem.item.price * cartItem.quantity;
+            if (cartItem.quantity >= 20) {
+              cartTotal = cartTotal + cartItem.item.price * 20;
+            } else {
+              cartTotal = cartTotal + cartItem.item.price * cartItem.quantity;
+            }
             // console.log("quantity " + cartItem.quantity);
             // console.log("price: " + cartItem.item.price);
             return (
@@ -139,7 +145,7 @@ function ShoppingCartPage(props) {
                 {cartData}
               </GridContainer>
               <h6 className={classNames(classes.title, classes.textRight)}>
-                Total: ₱ {total}
+                {cartArray}
               </h6>
             </GridItem>
           </GridContainer>

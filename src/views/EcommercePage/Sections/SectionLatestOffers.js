@@ -3,16 +3,11 @@ import React from "react";
 import classNames from "classnames";
 
 // @material-ui/core components
-import CircularProgress from "@material-ui/core/CircularProgress";
 import { makeStyles } from "@material-ui/core/styles";
 
 // core components
 import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
-import NavPills from "components/NavPills/NavPills.js";
-import Button from "components/CustomButtons/Button.js";
-import Card from "components/Card/Card.js";
-import CardBody from "components/Card/CardBody.js";
 
 import pricingStyle from "assets/jss/material-kit-pro-react/views/presentationSections/pricingStyle.js";
 

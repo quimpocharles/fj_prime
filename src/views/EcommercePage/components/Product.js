@@ -25,7 +25,8 @@ const Product = ({ ...rest }) => {
   const [image, setImage] = useState(rest.img);
   const [desc, setDesc] = useState(rest.category);
   let colorCircles;
-  console.log(classes);
+  // console.log(classes);
+  // console.log(rest);
 
   let productData;
 
@@ -44,7 +45,7 @@ const Product = ({ ...rest }) => {
         return (
           <GridItem xs={6} md={4}>
             <Link to={`/menu/${product.id}`}>
-              <Card profile plain value={product.id}>
+              <Card profile plain value={product.id} key={product.id}>
                 <CardAvatar
                   profile
                   plain

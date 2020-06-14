@@ -65,81 +65,8 @@ const Menu = (props) => {
 
 	function cancel(e) {
 		console.log(e);
-		message.error("Click on No");
+		message.error("Clicked on No");
 	}
-
-	// const lessClickHandler = async (e) => {
-	// 	console.log(e.currentTarget.value);
-	// 	if (quantity <= 1) {
-	// 		warning("Quantity should be at least 1 item");
-	// 		setQuantity(1);
-
-	// 		return false;
-	// 	}
-	// 	setQuantity(quantity - 1);
-	// 	props.getSub(quantity - 1, price, e.currentTarget.value);
-
-	// 	let cartItem = {
-	// 		userId: localStorage.getItem("id"),
-	// 		itemId: e.currentTarget.value,
-	// 		quantity: quantity - 1,
-	// 	};
-
-	// 	props
-	// 		.updateCartMutation({
-	// 			variables: cartItem,
-	// 			refetchQueries: [
-	// 				{
-	// 					query: getCartQuery,
-	// 					variables: { id: localStorage.getItem("id") },
-	// 				},
-	// 			],
-	// 		})
-	// 		.then((res) => {
-	// 			if (!res.data.updateCartItem) {
-	// 				warning("something went wrong");
-	// 				return false;
-	// 			}
-	// 			props.getCartQuery.refetch();
-	// 		});
-	// };
-
-	// const addClickHandler = (e) => {
-	// 	// console.log(e.currentTarget.value);
-	// 	if (quantity >= 20) {
-	// 		warning("You can only order 20 pcs per item");
-	// 		setQuantity(20);
-
-	// 		return false;
-	// 	}
-
-	// 	setQuantity(quantity + 1);
-	// 	props.getSub(quantity + 1, price, e.currentTarget.value);
-
-	// 	let cartItem = {
-	// 		userId: localStorage.getItem("id"),
-	// 		itemId: e.currentTarget.value,
-	// 		quantity: quantity + 1,
-	// 	};
-
-	// props
-	// 	.updateCartMutation({
-	// 		variables: cartItem,
-	// 		refetchQueries: [
-	// 			{
-	// 				query: getCartQuery,
-	// 				variables: { id: localStorage.getItem("id") },
-	// 			},
-	// 		],
-	// 	})
-	// 	.then((res) => {
-	// 		if (!res.data.updateCartItem) {
-	// 			warning("something went wrong");
-	// 			return false;
-	// 		}
-	// 		props.getCartQuery.refetch();
-	// 	});
-	// };
 
 	const getTotalHandler = (e) => {
 		setQuantity(e.target.value);
@@ -174,6 +101,10 @@ const Menu = (props) => {
 	useEffect(() => {
 		if (first) {
 			setFirst(false);
+		}
+
+		if (quantity >= 20) {
+			setQuantity(20);
 		}
 	});
 	props.getTotal(props.total);
@@ -214,6 +145,7 @@ const Menu = (props) => {
 								root: classes.selectMenuItem,
 								selected: classes.selectMenuItemSelected,
 							}}
+							key="1"
 							value="1"
 						>
 							1
@@ -223,6 +155,7 @@ const Menu = (props) => {
 								root: classes.selectMenuItem,
 								selected: classes.selectMenuItemSelected,
 							}}
+							key="2"
 							value="2"
 						>
 							2
@@ -232,6 +165,7 @@ const Menu = (props) => {
 								root: classes.selectMenuItem,
 								selected: classes.selectMenuItemSelected,
 							}}
+							key="3"
 							value="3"
 						>
 							3
@@ -242,6 +176,7 @@ const Menu = (props) => {
 								root: classes.selectMenuItem,
 								selected: classes.selectMenuItemSelected,
 							}}
+							key="4"
 							value="4"
 						>
 							4
@@ -251,6 +186,7 @@ const Menu = (props) => {
 								root: classes.selectMenuItem,
 								selected: classes.selectMenuItemSelected,
 							}}
+							key="5"
 							value="5"
 						>
 							5
@@ -260,6 +196,7 @@ const Menu = (props) => {
 								root: classes.selectMenuItem,
 								selected: classes.selectMenuItemSelected,
 							}}
+							key="6"
 							value="6"
 						>
 							6
@@ -270,6 +207,7 @@ const Menu = (props) => {
 								root: classes.selectMenuItem,
 								selected: classes.selectMenuItemSelected,
 							}}
+							key="7"
 							value="7"
 						>
 							7
@@ -280,6 +218,7 @@ const Menu = (props) => {
 								root: classes.selectMenuItem,
 								selected: classes.selectMenuItemSelected,
 							}}
+							key="8"
 							value="8"
 						>
 							8
@@ -289,6 +228,7 @@ const Menu = (props) => {
 								root: classes.selectMenuItem,
 								selected: classes.selectMenuItemSelected,
 							}}
+							key="9"
 							value="9"
 						>
 							9
@@ -298,6 +238,7 @@ const Menu = (props) => {
 								root: classes.selectMenuItem,
 								selected: classes.selectMenuItemSelected,
 							}}
+							key="10"
 							value="10"
 						>
 							10
@@ -308,6 +249,7 @@ const Menu = (props) => {
 								root: classes.selectMenuItem,
 								selected: classes.selectMenuItemSelected,
 							}}
+							key="11"
 							value="11"
 						>
 							11
@@ -317,6 +259,7 @@ const Menu = (props) => {
 								root: classes.selectMenuItem,
 								selected: classes.selectMenuItemSelected,
 							}}
+							key="12"
 							value="12"
 						>
 							12
@@ -326,6 +269,7 @@ const Menu = (props) => {
 								root: classes.selectMenuItem,
 								selected: classes.selectMenuItemSelected,
 							}}
+							key="13"
 							value="13"
 						>
 							13
@@ -336,6 +280,7 @@ const Menu = (props) => {
 								root: classes.selectMenuItem,
 								selected: classes.selectMenuItemSelected,
 							}}
+							key="14"
 							value="14"
 						>
 							14
@@ -345,6 +290,7 @@ const Menu = (props) => {
 								root: classes.selectMenuItem,
 								selected: classes.selectMenuItemSelected,
 							}}
+							key="15"
 							value="15"
 						>
 							15
@@ -354,6 +300,7 @@ const Menu = (props) => {
 								root: classes.selectMenuItem,
 								selected: classes.selectMenuItemSelected,
 							}}
+							key="16"
 							value="16"
 						>
 							16
@@ -364,6 +311,7 @@ const Menu = (props) => {
 								root: classes.selectMenuItem,
 								selected: classes.selectMenuItemSelected,
 							}}
+							key="17"
 							value="17"
 						>
 							17
@@ -374,6 +322,7 @@ const Menu = (props) => {
 								root: classes.selectMenuItem,
 								selected: classes.selectMenuItemSelected,
 							}}
+							key="18"
 							value="18"
 						>
 							18
@@ -383,6 +332,7 @@ const Menu = (props) => {
 								root: classes.selectMenuItem,
 								selected: classes.selectMenuItemSelected,
 							}}
+							key="19"
 							value="19"
 						>
 							19
@@ -392,6 +342,7 @@ const Menu = (props) => {
 								root: classes.selectMenuItem,
 								selected: classes.selectMenuItemSelected,
 							}}
+							key="20"
 							value="20"
 						>
 							20

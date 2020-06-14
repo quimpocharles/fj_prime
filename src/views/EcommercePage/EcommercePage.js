@@ -23,7 +23,6 @@ import SectionLatestOffers from "./Sections/SectionLatestOffers";
 import SectionProducts from "./Sections/SectionProducts";
 
 // @material-ui/core components
-import CircularProgress from "@material-ui/core/CircularProgress";
 import { makeStyles } from "@material-ui/core/styles";
 
 // @material-ui icons

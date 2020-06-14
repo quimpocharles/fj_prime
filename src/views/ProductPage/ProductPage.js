@@ -108,6 +108,7 @@ function ProductPage(props) {
             return false;
           }
           message.success("Successfully added to cart");
+          console.log(res);
 
           setColorSelect(1);
         });

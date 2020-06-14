@@ -147,7 +147,7 @@ function LoginPage(props) {
                     signup
                     className={classes.cardHeader}
                   >
-                    <h4 className={classes.cardTitle}>Welcome Back!</h4>
+                    <h4 className={classes.cardTitle}>Member LogIn</h4>
                   </CardHeader>
 
                   <CardBody signup>

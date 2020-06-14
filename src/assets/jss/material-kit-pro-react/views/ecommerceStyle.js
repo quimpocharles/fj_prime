@@ -12,8 +12,6 @@ import {
   hexToRgb,
 } from "assets/jss/material-kit-pro-react.js";
 import imagesStyles from "assets/jss/material-kit-pro-react/imagesStyles.js";
-import footerStyle from "assets/jss/material-kit-pro-react/views/componentsSections/footerStyle.js";
-
 const styles = {
   ...imagesStyles,
   title,
