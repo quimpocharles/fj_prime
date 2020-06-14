@@ -49,23 +49,9 @@ export default function PresentationPage() {
         }}
       />
       <Parallax
-        image={require("assets/img/qwe.jpg")}
+        image={require("assets/img/foodhub.jpg")}
         className={classes.parallax}
-      >
-        <div className={classes.container}>
-          <GridContainer>
-            <GridItem>
-              <div className={classes.brand}>
-                <img
-                  src={require("assets/img/bpapa.png")}
-                  className={classes.brandLogo}
-                />
-                <h3 className={classes.title}>The World’s Best Cream Puffs!</h3>
-              </div>
-            </GridItem>
-          </GridContainer>
-        </div>
-      </Parallax>
+      ></Parallax>
       <div className={classNames(classes.main, classes.mainRaised)}>
         <SectionDescription />
         <SectionContent />
