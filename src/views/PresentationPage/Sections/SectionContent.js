@@ -51,7 +51,7 @@ export default function SectionContent() {
               <div className={classes.animeAreaImg}>
                 <ScrollAnimation animateIn="fadeInUp">
                   <img
-                    src={presentationiPadComments}
+                    src={presentationiPadTable}
                     alt="iPad comments"
                     className={classes.areaImg}
                   />
@@ -60,7 +60,7 @@ export default function SectionContent() {
               <div className={classes.animeInfoImg}>
                 <ScrollAnimation animateIn="fadeInUp">
                   <img
-                    src={presentationiPadTable}
+                    src={presentationiPadComments}
                     alt="iPad table"
                     className={classes.infoImg}
                   />

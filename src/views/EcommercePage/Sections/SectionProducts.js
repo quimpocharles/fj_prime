@@ -6,6 +6,7 @@ import GridItem from "components/Grid/GridItem.js";
 import NavPills from "components/NavPills/NavPills.js";
 
 // @material-ui/core components
+import CircularProgress from "@material-ui/core/CircularProgress";
 import { makeStyles } from "@material-ui/core/styles";
 
 // @material-ui icons
@@ -30,6 +31,7 @@ export default function SectionLatestOffers(props) {
     custardArray = [];
     cookiesCreamArray = [];
     hyArray = [];
+    return <CircularProgress />;
   } else {
     props.products.map((product) => {
       if (product.categoryId === "5ec5b8f311a78f03911ae47e") {
