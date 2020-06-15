@@ -85,20 +85,20 @@ function LoginPage(props) {
         variables: { email: email, password: password },
       })
       .then((res) => {
-        console.log(res);
+        // console.log(res);
 
         let data = res.data.logInMember;
-        console.log(data);
+        // console.log(data);
         // error catch
         if (data === null) {
-          console.log("something went wrong");
+          // console.log("something went wrong");
           error("Authentication failed. Check the credentials.");
         } else {
-          console.log("successful login");
-          console.log(data);
+          // console.log("successful login");
+          // console.log(data);
           // cache in our browser
           // localStorage.setItem("key", "value")
-          console.log(data.id);
+          // console.log(data.id);
 
           localStorage.setItem("id", data.id);
           localStorage.setItem("firstname", data.first_name);
@@ -201,14 +201,14 @@ function LoginPage(props) {
                       Login
                     </Button>
                   </CardBody>
-                  <div className={classes.textCenter}>
-                    <Link to="/register">
-                      <Button type="submit" color="info" simple>
-                        <small>Register</small>
-                      </Button>
-                    </Link>
-                  </div>
                 </form>
+                <div className={classes.textCenter}>
+                  <Link to="/register">
+                    <Button type="submit" color="info" simple>
+                      <small>Register</small>
+                    </Button>
+                  </Link>
+                </div>
               </Card>
             </GridItem>
           </GridContainer>
