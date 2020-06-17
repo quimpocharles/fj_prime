@@ -65,7 +65,6 @@ const Menu = (props) => {
 
 	function cancel(e) {
 		console.log(e);
-		message.error("Clicked on No");
 	}
 
 	const getTotalHandler = (e) => {

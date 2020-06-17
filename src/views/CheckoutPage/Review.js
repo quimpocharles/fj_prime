@@ -6,27 +6,6 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Grid from "@material-ui/core/Grid";
 
-const products = [
-  { name: "Product 1", desc: "A nice thing", price: "$9.99" },
-  { name: "Product 2", desc: "Another thing", price: "$3.45" },
-  { name: "Product 3", desc: "Something else", price: "$6.51" },
-  { name: "Product 4", desc: "Best thing of all", price: "$14.11" },
-  { name: "Shipping", desc: "", price: "Free" },
-];
-const addresses = [
-  "1 Material-UI Drive",
-  "Reactville",
-  "Anytown",
-  "99999",
-  "USA",
-];
-const payments = [
-  { name: "Card type", detail: "Visa" },
-  { name: "Card holder", detail: "Mr John Smith" },
-  { name: "Card number", detail: "xxxx-xxxx-xxxx-1234" },
-  { name: "Expiry date", detail: "04/2024" },
-];
-
 const useStyles = makeStyles((theme) => ({
   listItem: {
     padding: theme.spacing(1, 0),
@@ -39,8 +18,43 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Review() {
+export default function Review(props) {
   const classes = useStyles();
+
+  const addresses = [props.ad, props.cty, props.zip, "PH"];
+
+  const payments = [
+    { name: "Email:", detail: props.em },
+    { name: "Contact Number:", detail: props.con },
+  ];
+
+  let products;
+  let cartTotal = 0;
+
+  if (props.cart === []) {
+    products = [];
+  } else {
+    products = props.cart.map((product) => {
+      // console.log(product);
+      cartTotal = cartTotal + product.item.price * product.quantity;
+      return (
+        <ListItem className={classes.listItem} key={product.itemId}>
+          <ListItemText
+            primary={`${product.item.name.toUpperCase()} - ${product.item.shell.name.toUpperCase()} SHELL`}
+            secondary={`Quantity: ${product.quantity}`}
+          />
+          <Typography variant="body2">
+            {" "}
+            ‎₱ {product.item.price.toFixed(2)}
+          </Typography>
+        </ListItem>
+      );
+    });
+
+    props.gt(cartTotal);
+  }
+
+  // console.log(products);
 
   return (
     <React.Fragment>
@@ -48,38 +62,32 @@ export default function Review() {
         Order summary
       </Typography>
       <List disablePadding>
-        {products.map((product) => (
-          <ListItem className={classes.listItem} key={product.name}>
-            <ListItemText primary={product.name} secondary={product.desc} />
-            <Typography variant="body2">{product.price}</Typography>
-          </ListItem>
-        ))}
+        {products}
         <ListItem className={classes.listItem}>
           <ListItemText primary="Total" />
           <Typography variant="subtitle1" className={classes.total}>
-            $34.06
+            ₱ {cartTotal.toFixed(2)}
           </Typography>
         </ListItem>
       </List>
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
           <Typography variant="h6" gutterBottom className={classes.title}>
-            Shipping
+            Contact Details
           </Typography>
-          <Typography gutterBottom>John Smith</Typography>
+          <Typography
+            gutterBottom
+          >{`${props.fn.toUpperCase()} ${props.ln.toUpperCase()}`}</Typography>
           <Typography gutterBottom>{addresses.join(", ")}</Typography>
         </Grid>
         <Grid item container direction="column" xs={12} sm={6}>
-          <Typography variant="h6" gutterBottom className={classes.title}>
-            Payment details
-          </Typography>
           <Grid container>
             {payments.map((payment) => (
               <React.Fragment key={payment.name}>
-                <Grid item xs={6}>
+                <Grid item xs={12}>
                   <Typography gutterBottom>{payment.name}</Typography>
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={12}>
                   <Typography gutterBottom>{payment.detail}</Typography>
                 </Grid>
               </React.Fragment>

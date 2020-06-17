@@ -1,5 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { v1 as uuidv1 } from "uuid";
+import paymaya from "paymaya-js-sdk";
+
 import { makeStyles } from "@material-ui/core/styles";
+import { graphql } from "react-apollo";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -13,23 +17,13 @@ import Typography from "@material-ui/core/Typography";
 import AddressForm from "./AddressForm";
 import PaymentForm from "./PaymentForm";
 import Review from "./Review";
+import Footer from "components/Footer/Footer.js";
 
 // relative
 import Header from "components/Header/Header.js";
 import HeaderLinks from "components/Header/HeaderLinks.js";
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
+import { getCartQuery } from "services/queries.js";
+import cardDetails from "helpers/cardDetails";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -46,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   paper: {
-    marginTop: "15vh",
+    marginTop: "20vh",
 
     marginBottom: theme.spacing(3),
     padding: theme.spacing(2),
@@ -66,36 +60,63 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(3),
     marginLeft: theme.spacing(1),
   },
+  textRight: {
+    textAlign: "right",
+  },
 }));
 
-const steps = ["Shipping address", "Payment details", "Review your order"];
+const steps = ["Contact Details", "Review your order", "Finalize your order"];
 
-function getStepContent(step) {
-  switch (step) {
-    case 0:
-      return <AddressForm />;
-    case 1:
-      return <PaymentForm />;
-    case 2:
-      return <Review />;
-    default:
-      throw new Error("Unknown step");
-  }
-}
-
-export default function Checkout() {
+function Checkout(props) {
   const classes = useStyles();
   const [activeStep, setActiveStep] = useState(0);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [address, setAddress] = useState("");
-  const [address2, setAddress2] = useState("");
   const [city, setCity] = useState("");
   const [province, setProvince] = useState("");
   const [zip, setZip] = useState("");
+  const [email, setEmail] = useState("");
   const [contact, setContact] = useState("");
+  const [total, setTotal] = useState(0);
+  const [orderId, setOrderId] = useState("");
+
+  let cartArray;
+
+  if (props.data.loading) {
+    cartArray = [];
+  } else {
+    cartArray = props.data.getMember.cart;
+  }
 
   const handleNext = () => {
+    // console.log(activeStep);
+    if (activeStep === 1) {
+      if (parseFloat(total) > 100) {
+        let transactionId =
+          "FH-" +
+          uuidv1().slice(0, 8) +
+          "-" +
+          lastName.slice(0, 3).toUpperCase() +
+          firstName.slice(0, 2).toUpperCase();
+        setOrderId(transactionId);
+
+        setTimeout(() => {
+          cardDetails(
+            total,
+            firstName,
+            lastName,
+            contact,
+            email,
+            address,
+            city,
+            zip,
+            cartArray,
+            transactionId
+          );
+        }, 5000);
+      }
+    }
     setActiveStep(activeStep + 1);
   };
 
@@ -103,18 +124,90 @@ export default function Checkout() {
     setActiveStep(activeStep - 1);
   };
 
+  const getFirstName = (v) => {
+    setFirstName(v);
+  };
+
+  const getLastName = (v) => {
+    setLastName(v);
+  };
+  const getAddress = (v) => {
+    setAddress(v);
+  };
+
+  const getZip = (v) => {
+    setZip(v);
+  };
+
+  const getEmail = (v) => {
+    setEmail(v);
+  };
+
+  const getContact = (v) => {
+    setContact(v);
+  };
+  const getCity = (v) => {
+    setCity(v);
+  };
+
+  const getTotal = (v) => {
+    setTotal(v);
+  };
+
+  function getStepContent(step) {
+    switch (step) {
+      case 0:
+        return (
+          <AddressForm
+            fn={getFirstName}
+            ln={getLastName}
+            ad={getAddress}
+            zip={getZip}
+            em={getEmail}
+            con={getContact}
+            cty={getCity}
+          />
+        );
+      case 1:
+        return (
+          <Review
+            fn={firstName}
+            ln={lastName}
+            ad={address}
+            zip={zip}
+            em={email}
+            con={contact}
+            cty={city}
+            cart={cartArray}
+            gt={getTotal}
+          />
+        );
+      default:
+        throw new Error("Unknown step");
+    }
+  }
+
+  useEffect(() => {
+    paymaya.init("pk-Z0OSzLvIcOI2UIvDhdTGVVfRSSeiGStnceqwUE7n0Ah", true);
+  }, []);
+
   return (
     <React.Fragment>
       <CssBaseline />
       <Header
         brand="FJ Primeholdings"
-        links={<HeaderLinks dropdownHoverColor="info" />}
+        links={<HeaderLinks dropdownHoverColor="warning" />}
         fixed
-        color="info"
+        color="warning"
       />
       <main className={classes.layout}>
         <Paper className={classes.paper}>
-          <Typography component="h1" variant="h4" align="center">
+          <Typography
+            component="h1"
+            variant="h4"
+            align="center"
+            className={classes.title}
+          >
             Checkout
           </Typography>
           <Stepper activeStep={activeStep} className={classes.stepper}>
@@ -125,15 +218,15 @@ export default function Checkout() {
             ))}
           </Stepper>
           <React.Fragment>
-            {activeStep === steps.length ? (
+            {activeStep === steps.length - 1 ? (
               <React.Fragment>
                 <Typography variant="h5" gutterBottom>
                   Thank you for your order.
                 </Typography>
                 <Typography variant="subtitle1">
-                  Your order number is #2001539. We have emailed your order
-                  confirmation, and will send you an update when your order has
-                  shipped.
+                  Your order number is <strong>{orderId}</strong>. You will now
+                  be redirected to the <strong>Paymaya </strong> payment
+                  gateway.
                 </Typography>
               </React.Fragment>
             ) : (
@@ -151,15 +244,40 @@ export default function Checkout() {
                     onClick={handleNext}
                     className={classes.button}
                   >
-                    {activeStep === steps.length - 1 ? "Place order" : "Next"}
+                    {activeStep === steps.length - 2 ? "Place order" : "Next"}
                   </Button>
                 </div>
               </React.Fragment>
             )}
           </React.Fragment>
         </Paper>
-        <Copyright />
       </main>
+      <Footer
+        content={
+          <div className={classes.textRight}>
+            <p className={classes.cqStudios}>
+              &copy; {1900 + new Date().getYear()} , Let{"'"}s make websites
+              great again.{" "}
+              <span className="cqBrand">
+                <a
+                  href="https://www.linkedin.com/in/charlesquimpo"
+                  target="_blank"
+                >
+                  <em>CQ Studios</em>
+                </a>
+              </span>
+            </p>
+          </div>
+        }
+      />
     </React.Fragment>
   );
 }
+
+export default graphql(getCartQuery, {
+  options: (props) => {
+    return {
+      variables: { id: localStorage.getItem("id") },
+    };
+  },
+})(Checkout);

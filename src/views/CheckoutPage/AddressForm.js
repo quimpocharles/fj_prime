@@ -5,45 +5,51 @@ import TextField from "@material-ui/core/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 
-export default function AddressForm() {
+export default function AddressForm(props) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
-  const [province, setProvince] = useState("");
+  const [email, setEmail] = useState("");
   const [zip, setZip] = useState("");
   const [contact, setContact] = useState("");
   const [flag, setFlag] = useState(false);
 
   const firstNameChangeHandler = (e) => {
     setFirstName(e.target.value);
+    props.fn(e.target.value);
   };
   const lastNameChangeHandler = (e) => {
     setLastName(e.target.value);
+    props.ln(e.target.value);
+  };
+
+  const emailChangeHandler = (e) => {
+    setEmail(e.target.value);
+    props.em(e.target.value);
   };
 
   const addChangeHandler = (e) => {
     setAddress(e.target.value);
+    props.ad(e.target.value);
   };
 
   const cityChangeHandler = (e) => {
     setCity(e.target.value);
-  };
-  const provinceChangeHandler = (e) => {
-    setProvince(e.target.value);
+    props.cty(e.target.value);
   };
 
   const zipChangeHandler = (e) => {
     setZip(e.target.value);
+    props.zip(e.target.value);
   };
 
   const contactChangeHandler = (e) => {
     let contactNumber = e.target.value;
     if (!isNaN(contactNumber)) {
-      console.log(contactNumber);
       setContact(contactNumber);
+      props.con(e.target.value);
     } else {
-      // alert("not a number");
       setFlag(true);
     }
   };
@@ -51,7 +57,7 @@ export default function AddressForm() {
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
-        Shipping address
+        Contact Details{" "}
       </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
@@ -100,15 +106,27 @@ export default function AddressForm() {
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
-            id="province"
-            name="province"
-            label="Province"
+            required
+            id="zip"
+            name="zip"
+            label="Zip Code"
+            value={zip}
             fullWidth
-            onChange={provinceChangeHandler}
+            required
+            onChange={zipChangeHandler}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <TextField required id="zip" name="zip" label="Zip Code" fullWidth />
+          <TextField
+            required
+            type="email"
+            id="email"
+            name="email"
+            label="Email"
+            value={email}
+            fullWidth
+            onChange={emailChangeHandler}
+          />
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
@@ -122,14 +140,7 @@ export default function AddressForm() {
             fullWidth
           />
         </Grid>
-        <Grid item xs={12}>
-          <FormControlLabel
-            control={
-              <Checkbox color="secondary" name="saveAddress" value="yes" />
-            }
-            label="Use this address for payment details"
-          />
-        </Grid>
+        <Grid item xs={12}></Grid>
       </Grid>
     </React.Fragment>
   );

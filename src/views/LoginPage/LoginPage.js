@@ -94,12 +94,6 @@ function LoginPage(props) {
           // console.log("something went wrong");
           error("Authentication failed. Check the credentials.");
         } else {
-          // console.log("successful login");
-          // console.log(data);
-          // cache in our browser
-          // localStorage.setItem("key", "value")
-          // console.log(data.id);
-
           localStorage.setItem("id", data.id);
           localStorage.setItem("firstname", data.first_name);
           localStorage.setItem("email", data.email);

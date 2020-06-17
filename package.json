@@ -17,6 +17,7 @@
     "moment": "2.24.0",
     "node-sass": "4.12.0",
     "nouislider": "14.0.2",
+    "paymaya-js-sdk": "^2.0.0",
     "prop-types": "15.7.2",
     "react": "16.9.0",
     "react-animate-on-scroll": "2.1.5",
@@ -31,7 +32,8 @@
     "react-slick": "0.25.2",
     "react-swipeable-views": "0.13.3",
     "react-tagsinput": "3.19.0",
-    "sweetalert2": "^9.10.13"
+    "sweetalert2": "^9.10.13",
+    "uuid": "^8.1.0"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 import { graphql } from "react-apollo";
 import { message } from "antd";
 import Divider from "@material-ui/core/Divider";
+import Button from "components/CustomButtons/Button.js";
+import { Link } from "react-router-dom";
 
 // nodejs library that concatenates classes
 import classNames from "classnames";
@@ -145,6 +147,11 @@ function ShoppingCartPage(props) {
               <h6 className={classNames(classes.title, classes.textRight)}>
                 {cartArray}
               </h6>
+              <Link to="/checkout">
+                <Button color="info" outline block>
+                  Proceed to Checkout
+                </Button>
+              </Link>
             </GridItem>
           </GridContainer>
         </div>
