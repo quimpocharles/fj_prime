@@ -113,7 +113,6 @@ function EcommercePage(props) {
       <SectionLatestOffers />
 
       <Footer
-        theme="white"
         content={
           <div className={classes.rightLinks}>
             <p className={classes.cqStudios}>

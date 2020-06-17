@@ -39,6 +39,7 @@ const footerStyle = {
   },
   footer: {
     padding: "0.9375rem 0",
+    background: "transparent",
     textAlign: "center",
     display: "flex",
     zIndex: "2",

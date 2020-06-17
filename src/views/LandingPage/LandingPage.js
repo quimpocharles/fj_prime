@@ -1,4 +1,4 @@
-/*eslint-disable*/ import React from "react";
+import React from "react";
 // nodejs library to set properties for components
 import PropTypes from "prop-types";
 // nodejs library that concatenates classes
@@ -46,27 +46,11 @@ export default function LandingPage({ ...rest }) {
         }}
         {...rest}
       />
-      <Parallax image={require("assets/img/bg8.jpg")} filter="dark">
+      <Parallax image={require("assets/img/bg8.jpg")} filter="dark" small>
         <div className={classes.container}>
           <GridContainer>
             <GridItem xs={12} sm={6} md={6}>
-              <h1 className={classes.title}>Your Story Starts With Us.</h1>
-              <h4>
-                Every landing page needs a small description after the big bold
-                title, that{"'"}s why we added this text here. Add here all the
-                information that can make you or your product create the first
-                impression.
-              </h4>
-              <br />
-              <Button
-                color="danger"
-                size="lg"
-                href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&ref=creativetim"
-                target="_blank"
-              >
-                <i className="fas fa-play" />
-                Watch video
-              </Button>
+              <h1 className={classes.title}>Get Ready To Dig In.</h1>
             </GridItem>
           </GridContainer>
         </div>
@@ -80,54 +64,19 @@ export default function LandingPage({ ...rest }) {
       </div>
       <Footer
         content={
-          <div>
-            <div className={classes.left}>
-              <List className={classes.list}>
-                <ListItem className={classes.inlineBlock}>
-                  <a
-                    href="https://www.creative-tim.com/?ref=mkpr-landing"
-                    target="_blank"
-                    className={classes.block}
-                  >
-                    Creative Tim
-                  </a>
-                </ListItem>
-                <ListItem className={classes.inlineBlock}>
-                  <a
-                    href="https://www.creative-tim.com/presentation?ref=mkpr-landing"
-                    target="_blank"
-                    className={classes.block}
-                  >
-                    About us
-                  </a>
-                </ListItem>
-                <ListItem className={classes.inlineBlock}>
-                  <a href="//blog.creative-tim.com/" className={classes.block}>
-                    Blog
-                  </a>
-                </ListItem>
-                <ListItem className={classes.inlineBlock}>
-                  <a
-                    href="https://www.creative-tim.com/license?ref=mkpr-landing"
-                    target="_blank"
-                    className={classes.block}
-                  >
-                    Licenses
-                  </a>
-                </ListItem>
-              </List>
-            </div>
-            <div className={classes.right}>
-              &copy; {1900 + new Date().getYear()} , made with{" "}
-              <Favorite className={classes.icon} /> by{" "}
-              <a
-                href="https://www.creative-tim.com/?ref=mkpr-landing"
-                target="_blank"
-              >
-                Creative Tim
-              </a>{" "}
-              for a better web.
-            </div>
+          <div className={classes.rightLinks}>
+            <p className={classes.cqStudios}>
+              &copy; {1900 + new Date().getYear()} , Let{"'"}s make websites
+              great again.{" "}
+              <span className="cqBrand">
+                <a
+                  href="https://www.linkedin.com/in/charlesquimpo"
+                  target="_blank"
+                >
+                  <em>CQ Studios</em>
+                </a>
+              </span>
+            </p>
           </div>
         }
       />

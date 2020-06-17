@@ -59,7 +59,6 @@ export default function PresentationPage() {
       </div>
       <SectionPricing />
       <Footer
-        theme="white"
         content={
           <div className={classes.rightLinks}>
             <p className={classes.cqStudios}>

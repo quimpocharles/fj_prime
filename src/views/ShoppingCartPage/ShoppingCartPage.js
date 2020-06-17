@@ -41,13 +41,13 @@ function ShoppingCartPage(props) {
   const [firstLoad, setFirstLoad] = useState(true);
 
   let cartData;
-  // console.log(props);
 
   useEffect(() => {
     if (firstLoad) {
       window.scrollTo(0, 0);
       document.body.scrollTop = 0;
     }
+    // props.data.refetch();
   });
 
   const warning = (w) => {
@@ -60,9 +60,7 @@ function ShoppingCartPage(props) {
   };
 
   const getTotalHandler = (itemCartTotal) => {
-    console.log(itemCartTotal);
     setTotal(itemCartTotal);
-    console.log(props.data);
   };
 
   let cartArray;
@@ -152,9 +150,8 @@ function ShoppingCartPage(props) {
         </div>
       </div>
       <Footer
-        theme="white"
         content={
-          <div className={classes.rightLinks}>
+          <div className={classes.textRight}>
             <p className={classes.cqStudios}>
               &copy; {1900 + new Date().getYear()} , Let{"'"}s make websites
               great again.{" "}
